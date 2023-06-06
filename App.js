@@ -9,6 +9,8 @@ import Inscription from './screen/inscription';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Provider } from 'react-redux';
 import Store from './store/configStore';
+import Cities from './screen/cities';
+import Buildings from './screen/buildings';
 
 const stack = createNativeStackNavigator();
 
@@ -20,6 +22,8 @@ export default function App() {
     <NavigationContainer>
       <stack.Navigator>
         <stack.Screen name="Homepage" component = {Homepage}/>
+        <stack.Screen name="city" component = {Cities}/>
+        <stack.Screen name="buildings" component = {Buildings}/>
         <stack.Screen name="inscription" component = {Inscription}/>
         <stack.Screen name="login" component = {Login}/>
         <stack.Screen name="valid" component = {Validation}/>
