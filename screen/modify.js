@@ -18,40 +18,79 @@ class Modify extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            login:"" ,
+            name:"" ,
+            fname:"",
             email: "",
-            pass:"" 
+            pass:"",
+            tel:"",
+            civ:""
           }
 }
 
 componentDidMount(){
     
-    const {crnt_usr} = this.props;
-    console.log({crnt_usr})
-    var tdata;
-    const db = SQLite.openDatabase("data.db");
-    db.transaction(trs => {
-        trs.executeSql("SELECT * FROM users WHERE user_name = ?", [crnt_usr] , (_, {rows: {_array}}) =>{
-        console.log(_array)
-        tdata = _array
-        this.setState({login:tdata[0].user_name})
-        this.setState({email:tdata[0].user_mail})
-        this.setState({pass:tdata[0].user_pass})
-    });})
+    const {crnt_id} = this.props;
+    let formdata = new FormData;
+    formdata.append("id",crnt_id)
+
+    fetch('http://jdevalik.fr/api/mycities/getuserinfo.php', {
+                method: 'POST', 
+                body: formdata, 
+                headers: {
+                    "Content-Type": "multipart/form-data"
+                },})
+                .then((response) => response.json())
+                .then((json) => {
+                    if(json != false){
+                      this.setState({name:json[0].user_name});
+                      this.setState({fname:json[0].user_fname});
+                      this.setState({email:json[0].user_mail});
+                      this.setState({pass:json[0].user_pass});
+                      this.setState({tel:json[0].user_tel});
+                      this.setState({civ:json[0].user_civ});
+                    }else{
+                       return false;
+                    }
+                })
+                .catch((error) => {
+                        console.error(error);
+                    }
+                );
 }
 
 
 valid(){
-    const {crnt_usr} = this.props;
-    var tdata;
-    const {navigate} = this.props.navigation ;
-    const db = SQLite.openDatabase("data.db");
-    db.transaction(trs => {
-        trs.executeSql("UPDATE users SET  user_name = ?, user_mail = ?, user_pass = ? WHERE user_name = ? ",[this.state.login,this.state.email,this.state.pass,crnt_usr]);
-        const action2 = {type:"crnt_user",value:this.state.login};
-        this.props.dispatch(action2);
-        navigate("valid")
+  const {navigate} = this.props.navigation;
+  const {crnt_id} = this.props;
+  let formdata = new FormData;
+  formdata.append("id",crnt_id);
+  formdata.append("name",this.state.name);
+  formdata.append("fname",this.state.fname);
+  formdata.append("mail",this.state.email);
+  formdata.append("pass",this.state.pass);
+  formdata.append("tel",this.state.tel);
+  formdata.append("civ",this.state.civ);
+
+  fetch('http://jdevalik.fr/api/mycities/updateuser.php', {
+    method: 'POST', 
+    body: formdata, 
+    headers: {
+        "Content-Type": "multipart/form-data"
+    },})
+    .then((response) => response.json())
+    .then((json) => {
+        if(json != false){
+          const action1 = {type:"crnt_user",value:this.state.email};
+          this.props.dispatch(action1);
+          navigate("valid");
+        }else{
+          Alert.alert("Veuillez entrer des informations valides.");
+        }
     })
+    .catch((error) => {
+            console.error(error);
+        }
+    );
 
 }
 
@@ -60,9 +99,12 @@ render(){
     const {crnt_usr} = this.props;
     return (
         <View style={styless.container}>
-                   <TextInput style={styles.input} value={this.state.login} onChangeText={text=> this.setState({login:text})}  placeholder="Login" keyboardType="text"/>
+                   <TextInput style={styles.input} value={this.state.name} onChangeText={text=> this.setState({name:text})}  placeholder="Nom" keyboardType="text"/>
+                   <TextInput style={styles.input} value={this.state.fname} onChangeText={text=> this.setState({fname:text})}  placeholder="Prénom" keyboardType="text"/>
                    <TextInput style={styles.input} value={this.state.email} onChangeText={text=> this.setState({email:text})}  placeholder="Email" keyboardType="text"/>
                    <TextInput style={styles.input} value={this.state.pass} onChangeText={text=> this.setState({pass:text})}  placeholder="Password" keyboardType="text"/>
+                   <TextInput style={styles.input} value={this.state.tel} onChangeText={text=> this.setState({tel:text})}  placeholder="Téléphone" keyboardType="text"/>
+                   <TextInput style={styles.input} value={this.state.civ} onChangeText={text=> this.setState({civ:text})}  placeholder="Civilité" keyboardType="text"/>
                    <WhiteButton style={{height: 20}} val = "Valider"  onPress={() => this.valid()}></WhiteButton>
         </View>
     )

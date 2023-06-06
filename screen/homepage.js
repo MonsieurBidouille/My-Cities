@@ -76,6 +76,8 @@ db.transaction(trs => {
                       <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png',}}/>
                       <View style={{height: 20}}/>
                       <Button style={styles.boutoncli} color={this.state.color1} title="Connexion"onPress={() => navigate("city")}/>
+                      <View style={{height: 20}}/>
+                      <Button style={styles.boutoncli} color={this.state.color1} title="Connexion"onPress={() => navigate("modify")}/>
             </View>
         )
     }
