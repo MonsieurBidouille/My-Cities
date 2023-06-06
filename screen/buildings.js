@@ -29,7 +29,6 @@ import {connect} from "react-redux";
 componentDidMount(){
     
     let buildid = {id:this.props.route.params.id};
-    console.log("test",buildid.id);
     let formdata = new FormData;
     formdata.append("id",buildid.id);
     fetch('http://jdevalik.fr/api/mycities/buildingsbycity.php', {
@@ -60,13 +59,14 @@ componentDidMount(){
 
 
 render(){
+    const {navigate} = this.props.navigation;
     return(
         <View style={styles.container}>
             
         {this.state.buildings.map((building, Building) => (
         <View  key={Building}>
                 <View >
-                <TouchableOpacity onPress={() => navigate("buildings",{id:building[1]})}><Text>{building[0]}</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigate("building",{id:building[1]})}><Text>{building[0]}</Text></TouchableOpacity>
                 </View>
         </View>))}
 

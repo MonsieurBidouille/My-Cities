@@ -11,6 +11,7 @@ import { Provider } from 'react-redux';
 import Store from './store/configStore';
 import Cities from './screen/cities';
 import Buildings from './screen/buildings';
+import Building from './screen/building';
 
 const stack = createNativeStackNavigator();
 
@@ -22,6 +23,7 @@ export default function App() {
     <NavigationContainer>
       <stack.Navigator>
         <stack.Screen name="Homepage" component = {Homepage}/>
+        <stack.Screen name="building" component = {Building}/>
         <stack.Screen name="city" component = {Cities}/>
         <stack.Screen name="buildings" component = {Buildings}/>
         <stack.Screen name="inscription" component = {Inscription}/>
