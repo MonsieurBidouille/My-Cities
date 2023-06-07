@@ -34,7 +34,7 @@ render(){
         <View style={styles.container}>
             <Button  title="Promouvoir un utilisateur"onPress={() => navigate("promote")}/>
             <View style={{height: 20}}/>
-            <Button  title="Valider bâtiments en attentes"onPress={() => navigate("login")}/>
+            <Button  title="Valider bâtiments en attentes"onPress={() => navigate("pending")}/>
             <View style={{height: 20}}/>
         </View>
     )

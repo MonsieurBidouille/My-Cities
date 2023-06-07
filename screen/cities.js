@@ -48,8 +48,7 @@ valid(){
             console.log(arr);
             this.setState({cities:arr});
           }else{
-            console.log('salut');
-            let emptyarr = new Array();
+            let emptyarr = [];
             this.setState({cities:emptyarr})
           }
     })

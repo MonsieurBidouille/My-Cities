@@ -22,6 +22,7 @@ import {connect} from "react-redux";
         super(props);
         this.state={
             buildings:[],
+            type:[]
         }      
 }
 
@@ -44,7 +45,6 @@ componentDidMount(){
             for(let i=0;i<json.length;i++){
                 arr.push([json[i].build_name,json[i].build_id]);
             }
-            console.log(arr);
             this.setState({buildings:arr});
           }else{
             console.log('salut');
