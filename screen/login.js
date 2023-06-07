@@ -24,7 +24,6 @@ class Login extends React.Component{
     }
 
 
-  
 
 checkpassword(){
 const formdata = new FormData;
@@ -60,13 +59,39 @@ formdata.append("pass",this.state.pass);
             this.props.dispatch(action1);
             const action3 = {type:"crnt_id",value:json[0].user_id}
             this.props.dispatch(action3);
+
+            this.getfavs(json[0].user_id);
+
             navigate("valid");
           }else{
             return false;
           }
     })
-    
+  }
 
+  getfavs(cid){
+    const formdata = new FormData;
+    console.log("dans le getfav",cid);
+    formdata.append("id",cid);
+    fetch('http://jdevalik.fr/api/mycities/getfavs.php', {
+      method: 'POST', 
+      body: formdata, 
+      headers: {
+          "Content-Type": "multipart/form-data"
+      },
+  }).then((response) => response.json())
+      .then((json) => {
+        if(json != false){
+          let arr = [];
+          for(let i = 0;i<json.length;i++){
+            arr.push(json[i].fav_build_id);
+          }
+          const action5 = {type:"add_fav",value:arr};
+          this.props.dispatch(action5);
+        }else{
+          return false;
+        }
+  })
   }
 
   test(){

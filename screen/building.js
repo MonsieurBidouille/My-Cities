@@ -1,10 +1,10 @@
 import { SafeAreaView, View, Text, Image, Button, Alert } from "react-native";
 import React from "react";
+import {connect} from "react-redux";
+import WhiteButton from "../components/white_button";
 
 
-
-
-export default class Building extends React.Component
+class Building extends React.Component
 {
     constructor(props)
     {
@@ -32,8 +32,13 @@ export default class Building extends React.Component
 
 componentDidMount(){
 
+
     let buildid = {id:this.props.route.params.id};
     const formdata = new FormData;
+
+    const {favs} = this.props;
+    if(favs.includes(buildid.id)){this.setState({bd_favorite:true});}
+
     formdata.append("id", buildid.id);
     const {navigate} = this.props.navigation
     fetch('http://jdevalik.fr/api/mycities/buildingbyid.php', {
@@ -62,14 +67,31 @@ componentDidMount(){
 
 addToFavorite = () =>
 {
-    console.log("Add : " + this.state.bd_favorite)
+    let buildid = {id:this.props.route.params.id};
+    const {favs} = this.props;
+    arr = favs;
+    arr.push(buildid.id);
+    const action5 = {type:"add_fav",value:arr};
+    this.props.dispatch(action5);
+
     this.setState({bd_favorite : true})
 }
 
 removeFavorite = () =>
 {
-    console.log("Remove : " + this.state.bd_favorite)
+    let buildid = {id:this.props.route.params.id};
+    const {favs} = this.props;
+    arr = favs.filter(function(a){return a !== buildid.id})
+
+    const action5 = {type:"add_fav",value:arr};
+    this.props.dispatch(action5);
+
     this.setState({bd_favorite : false})
+}
+
+test(){
+    const {favs} = this.props;
+    console.log(favs);
 }
 
 
@@ -101,7 +123,13 @@ render(){
                 }
             />
             <Text>dans favoris : {this.state.bd_favorite.toString()}</Text>
+            <WhiteButton style={{height: 20}} val = "test"  onPress={() => this.test()}></WhiteButton>
         </SafeAreaView>
     )
 }
 }
+
+
+const mapStateToProps = (state)=>{
+    return state;}
+export default connect(mapStateToProps)(Building);

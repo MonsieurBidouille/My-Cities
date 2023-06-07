@@ -12,6 +12,8 @@ import Store from './store/configStore';
 import Cities from './screen/cities';
 import Buildings from './screen/buildings';
 import Building from './screen/building';
+import Promote from './screen/promote';
+import Admin from './screen/admin';
 
 const stack = createNativeStackNavigator();
 
@@ -23,6 +25,8 @@ export default function App() {
     <NavigationContainer>
       <stack.Navigator>
         <stack.Screen name="Homepage" component = {Homepage}/>
+        <stack.Screen name="admin" component = {Admin}/>
+        <stack.Screen name="promote" component = {Promote}/>
         <stack.Screen name="building" component = {Building}/>
         <stack.Screen name="city" component = {Cities}/>
         <stack.Screen name="buildings" component = {Buildings}/>

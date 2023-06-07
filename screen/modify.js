@@ -96,7 +96,6 @@ valid(){
 
 render(){
         
-    const {crnt_usr} = this.props;
     return (
         <View style={styless.container}>
                    <TextInput style={styles.input} value={this.state.name} onChangeText={text=> this.setState({name:text})}  placeholder="Nom" keyboardType="text"/>
@@ -109,8 +108,6 @@ render(){
         </View>
     )
 }
-
-
 
 }
 

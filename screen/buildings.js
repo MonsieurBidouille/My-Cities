@@ -56,9 +56,8 @@ componentDidMount(){
 }
 
 
-
-
 render(){
+    const {favs} = this.props;
     const {navigate} = this.props.navigation;
     return(
         <View style={styles.container}>
@@ -66,7 +65,7 @@ render(){
         {this.state.buildings.map((building, Building) => (
         <View  key={Building}>
                 <View >
-                <TouchableOpacity onPress={() => navigate("building",{id:building[1]})}><Text>{building[0]}</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigate("building",{id:building[1]})}><Text>{building[0]}{favs.includes(building[1])?"⭐":""}</Text></TouchableOpacity>
                 </View>
         </View>))}
 
@@ -75,7 +74,6 @@ render(){
 
 const styles = StyleSheet.create({
 container:{
-    flex: 1,
     flex: 1,
     backgroundColor: 'pink',
     alignItems: 'center',

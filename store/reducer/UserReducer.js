@@ -1,14 +1,9 @@
-const initialState = {users:[],crnt_usr:"",crnt_role:"",crnt_id:""};
+const initialState = {favs:[],crnt_usr:"",crnt_role:"",crnt_id:""};
 
 function UserReducer(state=initialState,action){
     let nextState;
     switch(action.type){
-        case'add_user':
-            nextState = {...state,
-            users: [...state.users, action.value]
-        };
-        return nextState;
-        
+
         case'crnt_user':
             nextState = {...state,
             crnt_usr:action.value 
@@ -24,6 +19,12 @@ function UserReducer(state=initialState,action){
         case'crnt_id':
             nextState = {...state,
             crnt_id:action.value
+        };
+        return nextState;
+
+        case'add_fav':
+            nextState = {...state,
+            favs:action.value
         };
         return nextState;
 

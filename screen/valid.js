@@ -29,11 +29,17 @@ modif(){
   navigate("modify");
 }
 
+test(){
+  const {favs} = this.props;
+  console.log(favs);
+}
+
     render(){
         
         const {crnt_usr} = this.props;
         const {crnt_role} = this.props;
         const {crnt_id} = this.props;
+        const {navigate} = this.props.navigation;
 
         console.log(this.props.crnt_role);
 
@@ -45,6 +51,8 @@ modif(){
                       <View style={{height: 20}}/>
                       <WhiteButton style={{height: 20}} val = "Modification"  onPress={() => this.modif()}></WhiteButton>
                       <WhiteButton style={{height: 20}} val = "Déconnexion"  onPress={() => this.deco()}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "test"  onPress={() => this.test()}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "city"  onPress={() => navigate("city")}></WhiteButton>
                       <View style={{height: 20}}/>
             </View>
         )
