@@ -53,6 +53,7 @@ test(){
                       <WhiteButton style={{height: 20}} val = "Déconnexion"  onPress={() => this.deco()}></WhiteButton>
                       <WhiteButton style={{height: 20}} val = "test"  onPress={() => this.test()}></WhiteButton>
                       <WhiteButton style={{height: 20}} val = "city"  onPress={() => navigate("city")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "addbuild"  onPress={() => navigate("addbuild")}></WhiteButton>
                       <View style={{height: 20}}/>
             </View>
         )

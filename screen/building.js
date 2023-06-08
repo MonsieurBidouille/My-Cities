@@ -50,7 +50,6 @@ componentDidMount(){
             }).then((response) => response.json())
                 .then((json) => {
                     if(json != false){
-                        console.log("json : " + json[0].build_name)
                         this.setState({bd_name: json[0].build_name})
                         this.setState({bd_description: json[0].build_desc})
                         this.setState({bd_year: json[0].build_year})

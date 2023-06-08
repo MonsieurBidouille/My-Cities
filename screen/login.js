@@ -73,6 +73,7 @@ formdata.append("pass",this.state.pass);
     const formdata = new FormData;
     console.log("dans le getfav",cid);
     formdata.append("id",cid);
+
     fetch('http://jdevalik.fr/api/mycities/getfavs.php', {
       method: 'POST', 
       body: formdata, 

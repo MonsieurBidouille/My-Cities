@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import WhiteButton from '../components/white_button';
 import Inscription from './inscription';
-import * as SQLite from 'expo-sqlite';
 import {connect} from "react-redux";
 
 
@@ -24,7 +23,6 @@ class Admin extends React.Component{
 
         }      
 }
-
 
 
 

@@ -16,6 +16,8 @@ import Promote from './screen/promote';
 import Admin from './screen/admin';
 import Pending from './screen/pending';
 import Pendingexe from './screen/pendingexe';
+import AddBuilding from './screen/addbuilding';
+import BuildForm from './screen/addbuildform';
 
 const stack = createNativeStackNavigator();
 
@@ -28,6 +30,8 @@ export default function App() {
       <stack.Navigator>
         <stack.Screen name="Homepage" component = {Homepage}/>
         <stack.Screen name="admin" component = {Admin}/>
+        <stack.Screen name="buildform" component = {BuildForm}/>
+        <stack.Screen name="addbuild" component = {AddBuilding}/>
         <stack.Screen name="promote" component = {Promote}/>
         <stack.Screen name="building" component = {Building}/>
         <stack.Screen name="city" component = {Cities}/>

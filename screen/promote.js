@@ -29,6 +29,7 @@ export default class Promote extends React.Component{
 
 
 getuser(){
+    console.log("dedans");
     formdata = new FormData;
     formdata.append("name",this.state.user);
 
@@ -41,12 +42,19 @@ getuser(){
     }).then((response) => response.json())
         .then((json) => {
           if(json != false){
+            console.log("notfalse",json);
             let arr = [];
             for(let i=0;i<json.length;i++){
                 arr.push([json[i].user_id,json[i].user_fname,json[i].user_name,json[i].user_mail]);
             }
             this.setState({users:arr});
+            if(json.length==0){
+                this.setState({users:arr});
+            }
           }else{
+            console.log("false",json);
+            let arr = [];
+            this.setState({users:arr});
           }
     })
 }
@@ -65,6 +73,13 @@ promote(id){
 
 
 
+validation(user_id){
+    Alert.alert('', "Etes vous sur de vouloir ajouter cet personne en administrateur ?",
+    [ {      text: 'Oui'     ,      onPress:()=> {this.promote(user_id)}    }            ,           {text: 'Non'}]
+    
+    )
+}
+
 render(){
     return(
         <View style={styles.container}>
@@ -73,7 +88,7 @@ render(){
            {this.state.users.map((users, Users) => (
                     <View  key={Users}>
                     <View >
-                    <TouchableOpacity onPress={() => this.promote(users[0])}><Text>{users[1]} {users[2]}| mail:{users[3]}</Text></TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.validation(users[0])}><Text>{users[1]} {users[2]}| mail:{users[3]}</Text></TouchableOpacity>
                     </View>
             </View>))}
 
