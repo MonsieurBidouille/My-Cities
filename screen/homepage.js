@@ -75,11 +75,9 @@ db.transaction(trs => {
                       <WhiteButton val="INSCRIPTION" onPress={()=> navigate("inscription")}></WhiteButton>
                       <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png',}}/>
                       <View style={{height: 20}}/>
-                      <Button style={styles.boutoncli} color={this.state.color1} title="Connexion"onPress={() => navigate("city")}/>
+                      <Button style={styles.boutoncli} color={this.state.color1} title="city"onPress={() => navigate("city")}/>
                       <View style={{height: 20}}/>
-                      <Button style={styles.boutoncli} color={this.state.color1} title="Connexion"onPress={() => navigate("modify")}/>
-                      <View style={{height: 20}}/>
-                      <Button style={styles.boutoncli} color={this.state.color1} title="Connexion"onPress={() => navigate("admin")}/>
+                      <Button style={styles.boutoncli} color={this.state.color1} title="admin"onPress={() => navigate("admin")}/>
             </View>
         )
     }
