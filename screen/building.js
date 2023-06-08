@@ -95,7 +95,11 @@ test(){
 
 
 render(){
-    
+    const {navigate} = this.props.navigation;
+    let buildid = {id:this.props.route.params.id};
+    let admin = false;
+    const {crnt_role} = this.props;
+    if(crnt_role == "a"){admin = true}
     return(
         <SafeAreaView>
             <View>
@@ -123,6 +127,9 @@ render(){
             />
             <Text>dans favoris : {this.state.bd_favorite.toString()}</Text>
             <WhiteButton style={{height: 20}} val = "test"  onPress={() => this.test()}></WhiteButton>
+
+            {admin ? <Button  title="Modifier ce bâtiment"onPress={() => navigate("modifbuilding",{id:buildid.id})}/> : ""}
+
         </SafeAreaView>
     )
 }
