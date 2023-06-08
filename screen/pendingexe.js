@@ -62,20 +62,23 @@ componentDidMount(){
 }
 
 pendexe(boolt){
-    console.log(this.state.bd_id);
+    
     const {navigate} = this.props.navigation;
     const formdata = new FormData;
     formdata.append("valid",boolt);
     formdata.append("id",this.state.bd_id);
-    fetch('http://jdevalik.fr/api/mycities/pendingexe.php', {
+    fetch('http://jdevalik.fr/api/mycities/pendingex.php', {
         method: 'POST', 
         body: formdata, 
         headers: {
             "Content-Type": "multipart/form-data"
-        },})
-    navigate("pending");
-    }
-
+        },}).then((response) => response.json())
+        .then((json) => {
+            if(json != false){
+                 navigate("admin");}
+        })
+}
+        
 render(){
     return(
         <View style={styles.container}>
@@ -83,8 +86,8 @@ render(){
             <Text>{this.state.bd_description}</Text>
             <Text>{this.state.bd_year}</Text>
             <Text>{this.state.bd_address}</Text>
-            <Button  title="Valider" onPress={() => this.pendexe(1) }/> 
-            <Button  title="Supprimer" onPress={() =>  this.pendexe(0) }/>
+            <Button  title="Valider" onPress={() => this.pendexe("y") }/> 
+            <Button  title="Supprimer" onPress={() =>  this.pendexe("n") }/>
         </View>
     )
 }
