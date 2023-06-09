@@ -26,7 +26,6 @@ componentDidMount(){
     let b_id = {id:this.props.route.params.id};
     let formdata = new FormData;
     formdata.append("id",b_id.id);
-    console.log(b_id.id);
     fetch('http://jdevalik.fr/api/mycities/buildingbyid.php', {
                 method: 'POST', 
                 body: formdata, 
@@ -45,7 +44,7 @@ componentDidMount(){
                         this.setState({lat:json[0].build_lat});
                         this.setState({long:json[0].build_long});
                         this.setState({type_id:json[0].build_typeid});
-                        getcitname(json[0].build_city);
+                        this.getcitname(json[0].build_cityid);
                     }else{
                        return false;
                     }
@@ -112,6 +111,52 @@ valid(){
 
 }
 
+
+checkcity(){
+    let formdata = new FormData;
+    formdata.append("city",this.state.city)
+    fetch('http://jdevalik.fr/api/mycities/checkcity.php', {
+        method: 'POST', 
+        body: formdata, 
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+        if(json != false){
+            this.updatebuild(json[0].id);
+    }
+})
+}
+
+updatebuild(cit_id){
+    const {navigate} = this.props.navigation;
+    let b_id = {id:this.props.route.params.id};
+    const formdata = new FormData;
+    formdata.append("id",b_id.id);
+    formdata.append("name", this.state.name);
+    formdata.append("desc", this.state.desc);
+    formdata.append("adress", this.state.address);
+    formdata.append("year", this.state.year);
+    formdata.append("city",cit_id);
+    formdata.append("type",this.state.type_id);
+
+    fetch('http://jdevalik.fr/api/mycities/updatebuilding.php', {
+        method: 'POST', 
+        body: formdata, 
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+    })
+    .then((response) => response.json())
+    .then((json) => {
+        if(json != false){
+            navigate('admin');
+    }
+})
+}
+
 render(){
         
     return (
@@ -122,7 +167,7 @@ render(){
             <TextInput value={this.state.year.toString()} placeholder="Insérer l'année du bâtiment"onChangeText={inputText => this.setState({year: inputText})}/>
             <TextInput value={this.state.desc} placeholder="Insérer la description du bâtiment"onChangeText={inputText => this.setState({desc: inputText})}/>
             <TextInput value={this.state.city} placeholder="Insérer la ville du bâtiment"onChangeText={inputText => this.setState({city: inputText})}/>
-            <Text>InputText(Nom:{this.state.building_name}, Année:{this.state.building_year}, Description:{this.state.building_description})</Text>
+           
             <List.Section title="Détails du bâtiment">
                 <List.Accordion
                     title="Types"
@@ -136,17 +181,12 @@ render(){
                                 title={item.lib}
                                 onPress={()=>{this.setState({expanded:false}); this.setState({type_id:this.state.type[i].id});}}
                             />
-                        )
-                        
-                        )
+                        ))
                     }
                 </List.Accordion>
                 </List.Section>
             <Button 
-                title="Ajouter le bâtiment"
-                //onPress={() => this.props.navigation.navigate('Geolocation')}
-                onPress={() => this.checkcity()}
-            />
+                title="Modifier le bâtiment" onPress={() => this.checkcity()}/>
             <Text>Type id : {this.state.type_id.toString()}</Text>
           </View>  
     )
@@ -176,3 +216,5 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state)=>{
     return state;}
 export default connect(mapStateToProps)(Modifbuilding);
+
+
