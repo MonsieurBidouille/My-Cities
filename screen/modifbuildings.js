@@ -158,7 +158,8 @@ updatebuild(cit_id){
 }
 
 render(){
-        
+    const {navigate} = this.props.navigation;
+    let b_id = {id:this.props.route.params.id};
     return (
 <View>
             <Text>Latitude : {this.state.lat.toString()}</Text>
@@ -185,9 +186,8 @@ render(){
                     }
                 </List.Accordion>
                 </List.Section>
-            <Button 
-                title="Modifier le bâtiment" onPress={() => this.checkcity()}/>
-            <Text>Type id : {this.state.type_id.toString()}</Text>
+            <Button title="Modifier le bâtiment" onPress={() => this.checkcity()}/>
+            <Button title="Ajouter une photo" onPress={() => navigate('camera',{id:b_id.id})}/>
           </View>  
     )
 }

@@ -19,6 +19,7 @@ import Pendingexe from './screen/pendingexe';
 import AddBuilding from './screen/addbuilding';
 import BuildForm from './screen/addbuildform';
 import Modifbuilding from './screen/modifbuildings';
+import Camera_screen from './screen/camera';
 
 const stack = createNativeStackNavigator();
 
@@ -31,6 +32,7 @@ export default function App() {
       <stack.Navigator>
         <stack.Screen name="Homepage" component = {Homepage}/>
         <stack.Screen name="admin" component = {Admin}/>
+        <stack.Screen name="camera" component = {Camera_screen}/>
         <stack.Screen name="buildform" component = {BuildForm}/>
         <stack.Screen name="addbuild" component = {AddBuilding}/>
         <stack.Screen name="promote" component = {Promote}/>
