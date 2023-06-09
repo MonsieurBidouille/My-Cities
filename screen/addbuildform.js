@@ -17,7 +17,6 @@ class BuildForm extends React.Component
             building_description: "desc",
             building_town:1,
             building_address:"1, rue du dev",
-            building_architecte: 1,
             type:[],
             expanded:true,
             type_id: 1,
@@ -62,10 +61,6 @@ class BuildForm extends React.Component
     {
         const {crnt_id} = this.props;
         const {crnt_role} = this.props;
-
-
-        console.log("id=",cit_id);
-
         const formdata = new FormData;
 
         formdata.append("name", this.state.building_name);
@@ -73,14 +68,10 @@ class BuildForm extends React.Component
         formdata.append("adress", this.state.building_address);
         formdata.append("year", this.state.building_year);
         formdata.append("city",cit_id);
-        formdata.append("arch", this.state.building_architecte);
         formdata.append("lat", this.state.latitude);
         formdata.append("long", this.state.longitude);
         formdata.append("admin", crnt_role);
         formdata.append("type",this.state.type_id);
-
-        console.log(" name:",this.state.building_name," des:",this.state.building_description," adress:",this.state.building_address," year:",this.state.building_year,
-        " city:",cit_id," arch:", this.state.building_architecte, " lat:",this.state.latitude," long:",this.state.longitude, " admin:",crnt_role);
 
         fetch('http://jdevalik.fr/api/mycities/addbuilding.php',
         {
