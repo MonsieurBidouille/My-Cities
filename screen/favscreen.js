@@ -1,23 +1,25 @@
 import React from "react";
 import { FlatList, SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import {connect} from "react-redux";
 
 
 
-export default class Favlist extends React.Component
+class Favlist extends React.Component
 {
     constructor(props) 
     {
         super(props);
         this.state = 
         {
-            favBatArray: []
+            favBatArray: [],
         };
     }
     
     componentDidMount()
     {
+        const {crnt_id} = this.props;
         formData = new FormData()
-        const c_id = 1
+        const c_id = crnt_id;
         formData.append('id', c_id)
         fetch('http://jdevalik.fr/api/mycities/getfavsbyid.php',
         {
@@ -41,6 +43,8 @@ export default class Favlist extends React.Component
             }
             )
         .catch(e => console.log(e));
+
+        
     }
 
     renderItem = ({ item }) => 
@@ -75,3 +79,9 @@ export default class Favlist extends React.Component
         );
     }
 }
+
+
+
+const mapStateToProps = (state)=>{
+    return state;}
+export default connect(mapStateToProps)(Favlist);
