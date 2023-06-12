@@ -20,6 +20,9 @@ import AddBuilding from './screen/addbuilding';
 import BuildForm from './screen/addbuildform';
 import Modifbuilding from './screen/modifbuildings';
 import Camera_screen from './screen/camera';
+import Buildfilter from './screen/buildfilter';
+import Buildingsmap from './screen/buildingsmap';
+import Favlist from './screen/favscreen';
 
 const stack = createNativeStackNavigator();
 
@@ -32,6 +35,9 @@ export default function App() {
       <stack.Navigator>
         <stack.Screen name="Homepage" component = {Homepage}/>
         <stack.Screen name="admin" component = {Admin}/>
+        <stack.Screen name="buildingsmap" component = {Buildingsmap}/>
+        <stack.Screen name="favlist" component = {Favlist}/>
+        <stack.Screen name="buildfilter" component = {Buildfilter}/>
         <stack.Screen name="camera" component = {Camera_screen}/>
         <stack.Screen name="buildform" component = {BuildForm}/>
         <stack.Screen name="addbuild" component = {AddBuilding}/>

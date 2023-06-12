@@ -54,6 +54,8 @@ test(){
                       <WhiteButton style={{height: 20}} val = "test"  onPress={() => this.test()}></WhiteButton>
                       <WhiteButton style={{height: 20}} val = "city"  onPress={() => navigate("city")}></WhiteButton>
                       <WhiteButton style={{height: 20}} val = "addbuild"  onPress={() => navigate("addbuild")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "map"  onPress={() => navigate("favlist")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "map"  onPress={() => navigate("buildingsmap")}></WhiteButton>
                       <View style={{height: 20}}/>
             </View>
         )

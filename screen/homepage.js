@@ -78,6 +78,8 @@ db.transaction(trs => {
                       <Button style={styles.boutoncli} color={this.state.color1} title="city"onPress={() => navigate("city")}/>
                       <View style={{height: 20}}/>
                       <Button style={styles.boutoncli} color={this.state.color1} title="admin"onPress={() => navigate("admin")}/>
+                      <View style={{height: 20}}/>
+                      <Button style={styles.boutoncli} color={this.state.color1} title="filter"onPress={() => navigate("buildfilter")}/>
             </View>
         )
     }
