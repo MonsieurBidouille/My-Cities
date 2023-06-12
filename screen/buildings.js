@@ -22,7 +22,8 @@ import {connect} from "react-redux";
         super(props);
         this.state={
             buildings:[],
-            type:[]
+            type:[],
+            favs:[]
         }      
 }
 
@@ -53,6 +54,26 @@ componentDidMount(){
           }
     })
 
+    const {crnt_usr} = this.props;
+
+    fetch('http://jdevalik.fr/api/mycities/getfavsbyid.php', {
+        method: 'POST', 
+        body: formdata, 
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },
+    }).then((response) => response.json())
+        .then((json) => {
+          if(json != false){
+            let arr = [];
+            for(let i=0;i<json.length;i++){
+                arr.push(json[i].fav_id);
+            }
+            this.setState({favs:arr});
+          }
+    })
+
+
 }
 
 
@@ -65,7 +86,7 @@ render(){
         {this.state.buildings.map((building, Building) => (
         <View  key={Building}>
                 <View >
-                <TouchableOpacity onPress={() => navigate("building",{id:building[1]})}><Text>{building[0]}{favs.includes(building[1])?"⭐":""}</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigate("building",{id:building[1]})}><Text>{building[0]}{this.state.favs.includes(building[1])?"⭐":""}</Text></TouchableOpacity>
                 </View>
         </View>))}
 

@@ -94,6 +94,25 @@ componentDidMount(){
                             console.error(error);
                         }
                     );
+
+                    fetch('http://jdevalik.fr/api/mycities/getpicturesbybuilding.php', {
+                    method: 'POST', 
+                    body: formdata2, 
+
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    },
+                }).then((response) => response.json())
+                    .then((json) => {
+                        if(json != false){
+                            if(json.length>0){
+                                this.setState({bd_favorite:true});
+                            }
+                            }
+                        })
+                    
+ 
+                    
     
 }
 
@@ -119,25 +138,41 @@ getcitname(id){
 addToFavorite = () =>
 {
     let buildid = {id:this.props.route.params.id};
-    const {favs} = this.props;
-    arr = favs;
-    arr.push(buildid.id);
-    const action5 = {type:"add_fav",value:arr};
-    this.props.dispatch(action5);
+    let {crnt_id} = this.props;
 
-    this.setState({bd_favorite : true})
+    formdata = new FormData;
+    formdata.append("user_id", crnt_id);
+    formdata.append("building_id", buildid.id);
+
+    fetch('http://jdevalik.fr/api/mycities/addfav.php', {
+        method: 'POST', 
+        body: formdata, 
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },})
+
+        this.setState({bd_favorite:true});
+
 }
 
 removeFavorite = () =>
 {
     let buildid = {id:this.props.route.params.id};
-    const {favs} = this.props;
-    arr = favs.filter(function(a){return a !== buildid.id})
+    let {crnt_id} = this.props;
 
-    const action5 = {type:"add_fav",value:arr};
-    this.props.dispatch(action5);
+    formdata = new FormData;
+    formdata.append("u_id", crnt_id);
+    formdata.append("b_id", buildid.id);
 
-    this.setState({bd_favorite : false})
+    fetch('http://jdevalik.fr/api/mycities/delfav.php', {
+        method: 'POST', 
+        body: formdata, 
+        headers: {
+            "Content-Type": "multipart/form-data"
+        },})
+
+        this.setState({bd_favorite:false});
+
 }
 
 test(){
@@ -184,17 +219,23 @@ render(){
     if(crnt_role == "a"){admin = true}
     return(
         <SafeAreaView style={styles.container}>
-            <View>
-                <Text>URL image : {this.bd_image}</Text>
-                <Image source={this.bd_image}/>
-            </View>
-            <Text>id : {this.state.bd_id}</Text>
-            <Text>name : {this.state.bd_name}</Text>
-            <Text>description : {this.state.bd_description}</Text>
-            <Text>adresse : {this.state.bd_address}</Text>
-            <Text>année : {this.state.bd_year}</Text>
+            <Text style={styles.title}>{this.state.bd_name}</Text>
+            <View style={styles.info}>
+            <Text>Adresse : {this.state.bd_address}</Text>
+            <Text>Année : {this.state.bd_year}</Text>
             <Text>Ville : {this.state.cit_name}</Text>
-            <Button onPress={
+            <Text>Description : {this.state.bd_description}</Text>
+            </View>
+
+            <View style={styles.picontainer}>
+            <TouchableOpacity><AntDesign  onPress={() => this.prevpic()} name="leftcircleo" size={24} color="black" /></TouchableOpacity>
+            {this.showpicture()}
+            <TouchableOpacity><AntDesign  onPress={() => this.nextpic()} name="rightcircleo" size={24} color="black" /></TouchableOpacity>
+            </View>
+            <View style={styles.buttons}>
+            {admin ? <Button style={styles.button}  title="Modifier ce bâtiment"onPress={() => navigate("modifbuilding",{id:buildid.id})}/> : ""}
+
+            <Button style={styles.button} onPress={
                     
                     !this.state.bd_favorite ? this.addToFavorite : this.removeFavorite
                 }
@@ -203,14 +244,7 @@ render(){
                     !this.state.bd_favorite ? "Ajouter en favori" : "Enlever des favoris"
                 }
             />
-            <Text>dans favoris : {this.state.bd_favorite.toString()}</Text>
-            <WhiteButton style={{height: 20}} val = "test"  onPress={() => this.test()}></WhiteButton>
-            <View style={styles.picontainer}>
-            <TouchableOpacity><AntDesign  onPress={() => this.prevpic()} name="leftcircleo" size={24} color="black" /></TouchableOpacity>
-            {this.showpicture()}
-            <TouchableOpacity><AntDesign  onPress={() => this.nextpic()} name="rightcircleo" size={24} color="black" /></TouchableOpacity>
             </View>
-            {admin ? <Button  title="Modifier ce bâtiment"onPress={() => navigate("modifbuilding",{id:buildid.id})}/> : ""}
 
         </SafeAreaView>
     )
@@ -225,6 +259,29 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
   
+    title:{
+        fontSize:48,
+    },
+
+    buttons:{
+        margin:10,
+    },
+
+    button:{
+                marginBottom: 20,
+        padding: 30
+    },
+
+
+    info:{
+        marginTop:30,
+        padding:10,
+        backgroundColor: 'white',
+        borderWidth: 5,
+        borderColor: "black",
+        justifyContent:"flex-start"
+    },
+
     picture:{
 
         height:250,
