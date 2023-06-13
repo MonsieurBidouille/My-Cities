@@ -33,7 +33,7 @@ button: {
     borderRadius: 5,
     alignItems: 'center',
     marginBottom:10,
-    width:150,
+    width:140,
     borderWidth:3,
   },
   buttonText: {

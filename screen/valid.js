@@ -46,7 +46,7 @@ test(){
         console.log(this.props.crnt_role);
 
         return (
-          <View style={styles.container}>
+          <SafeAreaView style={styles.container}>
             <Image source={logo} style={styles.logo}/>    
             <View style={styles.btngroups}>
                   <View style={styles.btngroup}>
@@ -65,7 +65,7 @@ test(){
                       
                   </View>
             </View>
-          </View>
+          </SafeAreaView>
             
 
           
@@ -79,7 +79,6 @@ const styles = StyleSheet.create({
       flex: 1,
       backgroundColor: '#545454',
       alignItems: 'center',
-      justifyContent: 'center',
     },
   btngroups:{
     alignItems: 'center',

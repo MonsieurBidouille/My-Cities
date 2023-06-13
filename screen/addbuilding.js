@@ -83,10 +83,10 @@ export default class AddBuilding extends React.Component
                             {() =>
                                 {
                                     
-                                    Alert.alert('Ajout du bâtiment', 'Ajout avec ses coords => latitude : ' + this.state.buildMarker.latitude + ', longitude : ' + this.state.buildMarker.longitude, 
+                                    Alert.alert('Ajout du bâtiment', 'Ajouter ce bâtiment ?', 
                                     [
                                         {
-                                            text: 'Annuler',
+                                            text: 'Non',
                                             onPress: () => 
                                             {
                                                 console.log('Bouton Annuler pressé');
@@ -94,7 +94,7 @@ export default class AddBuilding extends React.Component
                                             style: 'cancel',
                                         },
                                         {
-                                            text: 'Ajouter ce bâtiment', 
+                                            text: 'Oui', 
                                             onPress: () => 
                                             {
                                                 console.log('Navigate to BuildForm.js');
@@ -116,13 +116,10 @@ export default class AddBuilding extends React.Component
                     }
                         
                 </MapView>
-                <Text>Latitude : {this.state.region.latitude}</Text>
-                <Text>Longitude : {this.state.region.longitude}</Text>
-                <Text>Latitude Delta : {this.state.region.latitudeDelta}</Text>
-                <Text>Longitude Delta: {this.state.region.longitudeDelta}</Text>
-                <Text>BuildMarker Latitude : {this.state.buildMarker.latitude}</Text>
-                <Text>BuildMarker Longitude : {this.state.buildMarker.longitude}</Text>
-                
+
+                <View style={{margin:30}}>
+                    <Text style={styles.text}>Veuillez placer un marqueur à l'emplacement de votre bâtiment puis appuyer sur le marqueur pour valider l'ajout.</Text>
+                </View>
             </SafeAreaView>
         );
     }
@@ -130,7 +127,8 @@ export default class AddBuilding extends React.Component
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: '#545454',
     },
     buttonContainer: {
         flex: 1,
@@ -150,12 +148,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     text: {
-        fontSize: 18,
+        fontSize: 20,
         color: 'white',
     },
     map:
     {
         width: '100%',
-        height: '50%',
-    }
+        height: '75%',
+    },
+
+
+
 });

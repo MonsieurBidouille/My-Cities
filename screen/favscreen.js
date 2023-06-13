@@ -1,6 +1,8 @@
 import React from "react";
-import { FlatList, SafeAreaView, View, Text, TouchableOpacity } from "react-native";
+import { FlatList, SafeAreaView, View, Text, TouchableOpacity,StyleSheet } from "react-native";
 import {connect} from "react-redux";
+import Title from "../components/title";
+import WhiteButton from "../components/white_button";
 
 
 
@@ -12,6 +14,7 @@ class Favlist extends React.Component
         this.state = 
         {
             favBatArray: [],
+            
         };
     }
     
@@ -39,9 +42,7 @@ class Favlist extends React.Component
                     arr.push([json[i].build_name,json[i].build_id])
                 }
                 this.setState({favBatArray:arr})
-                console.log("Nom : " + this.state.favBatArray[0][0])
-            }
-            )
+             })
         .catch(e => console.log(e));
 
         
@@ -50,7 +51,7 @@ class Favlist extends React.Component
     renderItem = ({ item }) => 
     {
         return (
-            <View>
+            <View style={styles.views}>
                 <TouchableOpacity
                     onPress={() => 
                         {
@@ -59,26 +60,59 @@ class Favlist extends React.Component
                         }
                 }
                 >
-                    <Text>{item[0]}</Text>
+                    <Text style={styles.text}>{item[0]}</Text>
                 </TouchableOpacity>
             </View>
             );
     }
 
-    render() 
-    {
+    render() {
+        const {navigate} = this.props.navigation; 
         
         return (
-          <SafeAreaView>
-                <FlatList
+          <SafeAreaView style={styles.container}>
+            <Title val="Vos Favoris"/>
+                <FlatList style={styles.flist}
                     data={this.state.favBatArray}
                     keyExtractor={(item) => item.build_id}
                     renderItem={this.renderItem}
                 />
+                <WhiteButton val="itinéraire" onPress={() => navigate("Itineraire")} />
           </SafeAreaView> 
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#545454',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+
+    views:{
+        backgroundColor:"grey"
+
+    },
+
+    text:{
+        fontSize:22,
+        textDecorationLine:"underline",
+        color:"white",
+        backgroundColor:"black",
+        margin:10,
+    },
+
+    flist:{
+
+    },
+  
+  });
+
+
+
+
 
 
 

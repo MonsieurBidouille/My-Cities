@@ -1,7 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Alert } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Aler } from 'react-native';
 import { List } from 'react-native-paper'
 import {connect} from "react-redux";
+import WhiteButton from '../components/white_button';
 
 class BuildForm extends React.Component
 {
@@ -141,42 +142,14 @@ class BuildForm extends React.Component
     }
 
     render() 
-    {
-        
+    {    
         return (
-          <View>
-            <Text>Latitude : {this.state.latitude}</Text>
-            <Text>Longitude : {this.state.longitude}</Text>
-            <TextInput 
-                placeholder="Insérer le nom du bâtiment" 
-                onChangeText=
-                {
-                    inputText => this.setState({building_name: inputText})
-                }
-            />
-            <TextInput 
-                placeholder="Insérer l'année du bâtiment"
-                onChangeText=
-                {
-                    inputText => this.setState({building_year: inputText})
-                }
-            />
-            <TextInput 
-                placeholder="Insérer la description du bâtiment"
-                onChangeText=
-                {
-                    inputText => this.setState({building_description: inputText})
-                }
-            />
-            <TextInput 
-                placeholder="Insérer la ville du bâtiment"
-                onChangeText=
-                {
-                    inputText => this.setState({building_town: inputText})
-                }
-            />
-            <Text>InputText(Nom:{this.state.building_name}, Année:{this.state.building_year}, Description:{this.state.building_description})</Text>
-            <List.Section title="Détails du bâtiment">
+          <KeyboardAvoidingView style={styles.container}>
+
+            <TextInput placeholder="Insérer le nom du bâtiment" onChangeText={inputText => this.setState({building_name: inputText})}/>
+            <TextInput placeholder="Insérer l'année du bâtiment" onChangeText={inputText => this.setState({building_year: inputText})}/>
+            <TextInput placeholder="Insérer la description du bâtiment" onChangeText={inputText => this.setState({building_description: inputText})}/>
+            <TextInput placeholder="Insérer la ville du bâtiment" onChangeText={inputText => this.setState({building_town: inputText})}/>
                 <List.Accordion
                     title="Types"
                     left={props => <List.Icon {...props} icon="store" />}
@@ -184,27 +157,23 @@ class BuildForm extends React.Component
                     onPress={this.handlePress}>
                     {
                         this.state.type.map((item, i) => (
-                            <List.Item
-                                key={i}
-                                title={item.lib}
-                                onPress={()=>{this.setState({expanded:false}); this.setState({type_id:this.state.type[i].id});}}
-                            />
-                        )
-                        
-                        )
-                    }
+                            <List.Item key={i} title={item.lib} onPress={()=>{this.setState({expanded:false}); this.setState({type_id:this.state.type[i].id});}}/>))}
                 </List.Accordion>
-                </List.Section>
-            <Button 
-                title="Ajouter le bâtiment"
-                //onPress={() => this.props.navigation.navigate('Geolocation')}
-                onPress={() => this.checkcity()}
-            />
-            <Text>Type id : {this.state.type_id}</Text>
-          </View>  
+            <WhiteButton val="Ajouter le bâtiment" onPress={() => this.checkcity()}/>
+          </KeyboardAvoidingView>  
         );
     }
 }
+
+const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#545454',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+
+  });
 
 
 
