@@ -13,6 +13,7 @@ import {
   TextInput
 } from 'react-native';
 import {connect} from "react-redux";
+import Title from '../components/title';
 
 
 
@@ -82,11 +83,12 @@ render(){
     const {navigate} = this.props.navigation;
     return(
         <View style={styles.container}>
+          <Title style={styles.title} val="Liste des bâtiments" />
             
         {this.state.buildings.map((building, Building) => (
-        <View  key={Building}>
+        <View key={Building}>
                 <View >
-                <TouchableOpacity onPress={() => navigate("building",{id:building[1]})}><Text>{building[0]}{this.state.favs.includes(building[1])?"⭐":""}</Text></TouchableOpacity>
+                <TouchableOpacity onPress={() => navigate("building",{id:building[1]})}><Text style={styles.builds}>{building[0]}{this.state.favs.includes(building[1])?"⭐":""}</Text></TouchableOpacity>
                 </View>
         </View>))}
 
@@ -94,12 +96,22 @@ render(){
 }
 
 const styles = StyleSheet.create({
-container:{
-    flex: 1,
-    backgroundColor: 'pink',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+    container: {
+      flex: 1,
+      backgroundColor: '#545454',
+      alignItems: "center",
+      justifyContent: "flex-start",
+    },
+
+    title:{
+      padding:100
+    },
+
+    builds:{
+      fontSize:20,
+      color:"white",
+      textDecorationLine:"underline"
+    },
 }
 )
 

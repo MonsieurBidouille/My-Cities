@@ -96,38 +96,78 @@ dofilter(tid,y1,y2,bname){
 render(){
     const {navigate} = this.props.navigation;
     return(
-        <View>
-            <View>
-                <TextInput placeholder='Nom du bâtiment' value={this.state.buildname} onChangeText={text=> this.setState({buildname:text})}></TextInput>
-                    <View>
+        <View style={styles.container}>
+            <View style={styles.bloc}>
+                <TextInput style={styles.input} placeholder='Tapez ici Nom du bâtiment' value={this.state.buildname} onChangeText={text=> this.setState({buildname:text})}></TextInput>
+                    <View style={styles.years}>
                         <Text>Année du bâtiment entre :</Text>
-                        <TextInput placeholder='' keyboardType = 'numeric' value={this.state.year1} onChangeText={text=> this.setState({year1:text})}></TextInput>
-                        <Text> et :</Text>
-                        <TextInput placeholder='' keyboardType = 'numeric' value={this.state.year2} onChangeText={text=> this.setState({year2:text})}></TextInput>
+                        <TextInput style={styles.input} placeholder='Tapez ici la première date' keyboardType = 'numeric' value={this.state.year1} onChangeText={text=> this.setState({year1:text})}></TextInput>
+                        <Text > et :</Text>
+                        <TextInput style={styles.input} placeholder='Tapez ici la seconde date' keyboardType = 'numeric' value={this.state.year2} onChangeText={text=> this.setState({year2:text})}></TextInput>
                     </View>
                 <View>
                     <List.Accordion
                         title="Types de bâtiment"
                         left={props => <List.Icon {...props} icon="castle" />}>
                             {this.state.types.map((type,i) => (
-                    <List.Item key={i} title={type.lib} onPress={()=>{this.setState({typeid:type.id})}} />    
+                    <List.Item style={styles.touch} key={i} title={type.lib} onPress={()=>{this.setState({typeid:type.id})}} />    
                             ))}
                     </List.Accordion>
                 </View>
                
 
-                <View>
+                <View style={styles.types}>
                 {this.state.favs.map((favs,i) => (
-                    <TouchableOpacity key={i} title={favs.name} onPress={() => navigate("building",{id:favs.id})}>
-                        <Text>{favs.name}</Text>
+                    <TouchableOpacity style={styles.results} key={i} title={favs.name} onPress={() => navigate("building",{id:favs.id})}>
+                        <Text style={styles.restext} >{favs.name}</Text>
                     </TouchableOpacity>
                 ))}
                 </View>
-
-                <Button title="OK" onPress={()=>{this.dofilter(this.state.typeid,this.state.year1,this.state.year2,this.state.buildname)}} />
             </View>
+            <WhiteButton style={styles.but} val="OK" onPress={()=>{this.dofilter(this.state.typeid,this.state.year1,this.state.year2,this.state.buildname)}} />
         </View>
     )
 }
 }
 
+const styles = StyleSheet.create({
+    container:{
+        flex: 1,
+        backgroundColor: '#545454',
+        alignItems: 'center',
+        justifyContent:"center"
+      },
+
+      bloc:{
+       
+        padding:30
+      },
+      
+      input:{
+        backgroundColor:"white"
+      },
+    years:{
+        backgroundColor:"white"
+    },
+
+    types:{
+        width:300,
+        
+    },
+    touch:{
+        backgroundColor:"white"
+    },
+    but:{
+        margin:35
+    },
+
+    results:{
+     
+    },
+
+    restext:{
+        fontSize:23,
+        color:'white',
+        textDecorationLine:"underline"
+    },
+    })

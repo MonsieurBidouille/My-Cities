@@ -104,7 +104,7 @@ formdata.append("pass",this.state.pass);
     render(){
       const {navigate} = this.props.navigation;
         return (
-            <View style={styless.container}>
+            <View style={styles.container}>
                        <Title val="Connexion"/>
                       <View style={{height: 5}}/>
                       <TextInput style={styles.input} value={this.state.email} onChangeText={text=> this.setState({email:text})}  placeholder="Email" keyboardType="text"/>
@@ -127,10 +127,6 @@ const styles = StyleSheet.create({
       margin:10,
       backgroundColor:'white',
     },
-  });
-
-
-  const styless = StyleSheet.create({
     container: {
       flex: 1,
       backgroundColor: '#545454',

@@ -216,7 +216,9 @@ render(){
     const {navigate} = this.props.navigation;
     let buildid = {id:this.props.route.params.id};
     let admin = false;
+    let connected = false;
     const {crnt_role} = this.props;
+    if(crnt_role == "a" || crnt_role == "u"){connected = true};
     if(crnt_role == "a"){admin = true}
     return(
         <View style={styles.container}>
@@ -236,9 +238,10 @@ render(){
 
             <View style={styles.buttons1}>
 
+        {connected ? 
             <WhiteButton onPress={
                 !this.state.bd_favorite ? this.addToFavorite : this.removeFavorite
-                }val={!this.state.bd_favorite ? "Ajouter en favori" : "Enlever des favoris" }/>
+                }val={!this.state.bd_favorite ? "Ajouter en favori" : "Enlever des favoris" }/>: ""}
             </View>
 
             <View style={styles.buttons}>
@@ -246,8 +249,8 @@ render(){
             <WhiteButton   val="Modifier ce bâtiment"onPress={() => navigate("modifbuilding",{id:buildid.id})}/> : ""}
 
 
-                
-            <WhiteButton val="Ajouter une photo" onPress={()=> navigate("camera",{id:buildid.id})}></WhiteButton>
+        {connected ?   
+            <WhiteButton val="Ajouter une photo" onPress={()=> navigate("camera",{id:buildid.id})}></WhiteButton> : <Text style={styles.text}>Connectez vous pour ajouter une photo à ce bâtiment</Text>}
 
          
             </View>
@@ -266,6 +269,9 @@ const styles = StyleSheet.create({
       columnGap:5
     },
   
+    text:{
+        color:"white",
+    },
 
     buttons1:{
         flex:1,

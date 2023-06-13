@@ -104,7 +104,8 @@ container2:{
 
   input:{
     backgroundColor:"white",
-    width:150,
+    width:250,
+    height:35,
     margin:5,
     borderWidth:1,
   }

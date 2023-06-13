@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Aler } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Aler,KeyboardAvoidingView } from 'react-native';
 import { List } from 'react-native-paper'
 import {connect} from "react-redux";
 import WhiteButton from '../components/white_button';
@@ -146,18 +146,20 @@ class BuildForm extends React.Component
         return (
           <KeyboardAvoidingView style={styles.container}>
 
-            <TextInput placeholder="Insérer le nom du bâtiment" onChangeText={inputText => this.setState({building_name: inputText})}/>
-            <TextInput placeholder="Insérer l'année du bâtiment" onChangeText={inputText => this.setState({building_year: inputText})}/>
-            <TextInput placeholder="Insérer la description du bâtiment" onChangeText={inputText => this.setState({building_description: inputText})}/>
-            <TextInput placeholder="Insérer la ville du bâtiment" onChangeText={inputText => this.setState({building_town: inputText})}/>
-                <List.Accordion
+            <View style={styles.info}>
+            <TextInput style={styles.input} placeholder="Insérer le nom du bâtiment" onChangeText={inputText => this.setState({building_name: inputText})}/>
+            <TextInput style={styles.input} placeholder="Insérer l'année du bâtiment" onChangeText={inputText => this.setState({building_year: inputText})}/>
+            <TextInput style={styles.input} placeholder="Insérer la description du bâtiment" onChangeText={inputText => this.setState({building_description: inputText})}/>
+            <TextInput style={styles.input} placeholder="Insérer la ville du bâtiment" onChangeText={inputText => this.setState({building_town: inputText})}/>
+            </View>
+                <List.Accordion style={styles.list}
                     title="Types"
-                    left={props => <List.Icon {...props} icon="store" />}
+                    left={props => <List.Icon {...props} icon="castle" />}
                     expanded={this.state.expanded}
                     onPress={this.handlePress}>
                     {
                         this.state.type.map((item, i) => (
-                            <List.Item key={i} title={item.lib} onPress={()=>{this.setState({expanded:false}); this.setState({type_id:this.state.type[i].id});}}/>))}
+                            <List.Item style={styles.items} key={i} title={item.lib} onPress={()=>{this.setState({expanded:false}); this.setState({type_id:this.state.type[i].id});}}/>))}
                 </List.Accordion>
             <WhiteButton val="Ajouter le bâtiment" onPress={() => this.checkcity()}/>
           </KeyboardAvoidingView>  
@@ -172,7 +174,21 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
-
+    info:{
+        margin:10,
+        backgroundColor:"white"
+    },
+    input:{
+        width:250,
+        height:50,
+        padding:10
+    },
+    list:{
+        width:250,
+    },
+    items:{
+        backgroundColor:"white"
+    },
   });
 
 
