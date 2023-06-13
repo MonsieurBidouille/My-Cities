@@ -187,7 +187,7 @@ render(){
                 </List.Accordion>
                 </List.Section>
             <Button title="Modifier le bâtiment" onPress={() => this.checkcity()}/>
-            <Button title="Ajouter une photo" onPress={() => navigate('camera',{id:b_id.id})}/>
+            
           </View>  
     )
 }
@@ -216,5 +216,4 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state)=>{
     return state;}
 export default connect(mapStateToProps)(Modifbuilding);
-
 

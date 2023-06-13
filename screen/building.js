@@ -3,6 +3,7 @@ import React from "react";
 import {connect} from "react-redux";
 import WhiteButton from "../components/white_button";
 import { AntDesign } from '@expo/vector-icons';
+import Title from "../components/title";
 
 
 class Building extends React.Component
@@ -39,10 +40,8 @@ componentDidMount(){
 
 
     let buildid = {id:this.props.route.params.id};
+    const {crnt_id} = this.props;
     const formdata = new FormData;
-
-    const {favs} = this.props;
-    if(favs.includes(buildid.id)){this.setState({bd_favorite:true});}
 
     formdata.append("id", buildid.id);
     const {navigate} = this.props.navigation
@@ -90,14 +89,15 @@ componentDidMount(){
                         }else{
                         }
                     })
-                    .catch((error) => {
-                            console.error(error);
-                        }
-                    );
 
-                    fetch('http://jdevalik.fr/api/mycities/getpicturesbybuilding.php', {
+
+                let formdata3 = new FormData;
+                formdata3.append("user_id",crnt_id);
+                formdata3.append("building_id",buildid.id);
+
+                    fetch('http://jdevalik.fr/api/mycities/getfavsforuserbyid.php', {
                     method: 'POST', 
-                    body: formdata2, 
+                    body: formdata3, 
 
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -105,11 +105,12 @@ componentDidMount(){
                 }).then((response) => response.json())
                     .then((json) => {
                         if(json != false){
-                            if(json.length>0){
                                 this.setState({bd_favorite:true});
                             }
-                            }
                         })
+                
+
+            
                     
  
                     
@@ -218,8 +219,8 @@ render(){
     const {crnt_role} = this.props;
     if(crnt_role == "a"){admin = true}
     return(
-        <SafeAreaView style={styles.container}>
-            <Text style={styles.title}>{this.state.bd_name}</Text>
+        <View style={styles.container}>
+            <Title val= {this.state.bd_name}/>
             <View style={styles.info}>
             <Text>Adresse : {this.state.bd_address}</Text>
             <Text>Année : {this.state.bd_year}</Text>
@@ -228,25 +229,30 @@ render(){
             </View>
 
             <View style={styles.picontainer}>
-            <TouchableOpacity><AntDesign  onPress={() => this.prevpic()} name="leftcircleo" size={24} color="black" /></TouchableOpacity>
+            <TouchableOpacity><AntDesign  onPress={() => this.prevpic()} name="leftcircleo" size={24} color="white" /></TouchableOpacity>
             {this.showpicture()}
-            <TouchableOpacity><AntDesign  onPress={() => this.nextpic()} name="rightcircleo" size={24} color="black" /></TouchableOpacity>
+            <TouchableOpacity><AntDesign  onPress={() => this.nextpic()} name="rightcircleo" size={24} color="white" /></TouchableOpacity>
             </View>
+
+            <View style={styles.buttons1}>
+
+            <WhiteButton onPress={
+                !this.state.bd_favorite ? this.addToFavorite : this.removeFavorite
+                }val={!this.state.bd_favorite ? "Ajouter en favori" : "Enlever des favoris" }/>
+            </View>
+
             <View style={styles.buttons}>
-            {admin ? <Button style={styles.button}  title="Modifier ce bâtiment"onPress={() => navigate("modifbuilding",{id:buildid.id})}/> : ""}
+            {admin ? 
+            <WhiteButton   val="Modifier ce bâtiment"onPress={() => navigate("modifbuilding",{id:buildid.id})}/> : ""}
 
-            <Button style={styles.button} onPress={
-                    
-                    !this.state.bd_favorite ? this.addToFavorite : this.removeFavorite
-                }
-                title=
-                {
-                    !this.state.bd_favorite ? "Ajouter en favori" : "Enlever des favoris"
-                }
-            />
+
+                
+            <WhiteButton val="Ajouter une photo" onPress={()=> navigate("camera",{id:buildid.id})}></WhiteButton>
+
+         
             </View>
 
-        </SafeAreaView>
+        </View>
     )
 }
 }
@@ -254,42 +260,45 @@ render(){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'pink',
+      backgroundColor: '#545454',
       alignItems: 'center',
       justifyContent: 'center',
+      columnGap:5
     },
   
-    title:{
-        fontSize:48,
+
+    buttons1:{
+        flex:1,
+        justifyContent:"flex-end"
     },
 
     buttons:{
+        flex: 1,
         margin:10,
+        flexDirection: 'row',
+    
     },
 
-    button:{
-                marginBottom: 20,
-        padding: 30
-    },
 
 
     info:{
-        marginTop:30,
-        padding:10,
+        flex:1,
         backgroundColor: 'white',
         borderWidth: 5,
         borderColor: "black",
-        justifyContent:"flex-start"
+        justifyContent:"flex-start",
+        margin:5
     },
 
     picture:{
-
-        height:250,
-        width:250
+        flex:1,
+        height:270,
+        width:350
     },
 
     picontainer:{
-        flex:1,
+        flex:2,
+        margin:5,
         flexDirection:"row",
         alignItems:"center"
         

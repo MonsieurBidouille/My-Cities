@@ -9,8 +9,10 @@ import {
   TextInput,
   TouchableOpacity,
 } from 'react-native';
+import Title  from '../components/title';
 import {connect} from "react-redux";
 import * as SQLite from 'expo-sqlite';
+import WhiteButton from '../components/white_button';
 
 class Login extends React.Component{
     constructor(props){
@@ -103,14 +105,14 @@ formdata.append("pass",this.state.pass);
       const {navigate} = this.props.navigation;
         return (
             <View style={styless.container}>
-                      <Text style={{color:'blue',fontSize: 22 , textAlign:'center'}}>Connexion</Text>
+                       <Title val="Connexion"/>
                       <View style={{height: 5}}/>
                       <TextInput style={styles.input} value={this.state.email} onChangeText={text=> this.setState({email:text})}  placeholder="Email" keyboardType="text"/>
                       <View style={{height: 5}}/>
                       <TextInput style={styles.input} value={this.state.pass} onChangeText={text=> this.setState({pass:text})} placeholder="Mot de passe" keyboardType="text"/>
                       <View style={{height: 5}}/>
-                      <Button style={{margin:10}} color='blue'  title="Connexion" onPress={() => this.connexion()}/>
-                      <TouchableOpacity><Text style={{color:'blue',fontSize:16, textAlign:'center'}} onPress={() => navigate('inscription')}>S'inscrire</Text></TouchableOpacity>
+                      <WhiteButton   val="Connexion" onPress={() => this.connexion()}/>
+                      <WhiteButton onPress={() => navigate('inscription')}   val="Inscription"/>
             </View>
         )
     }
@@ -131,7 +133,7 @@ const styles = StyleSheet.create({
   const styless = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'pink',
+      backgroundColor: '#545454',
       alignItems: 'center',
       justifyContent: 'center',
     },

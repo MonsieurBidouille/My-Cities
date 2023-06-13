@@ -88,36 +88,7 @@ export default class Buildingsmap extends React.Component
                     style={styles.map}
                     initialRegion={this.state.region}
                     onRegionChange={this.onRegionChange}
-                    onPress=
-                    {
-                        (e) => 
-                        {
-                            const eCoord = e.nativeEvent.coordinate
-                            Alert.alert('Ajout du bâtiment', 'Ajout avec ses coords => latitude : ' + eCoord.latitude + ', longitude : ' + eCoord.longitude, 
-                                    [
-                                        {
-                                            text: 'Annuler',
-                                            onPress: () => 
-                                            {
-                                                console.log('Bouton Annuler pressé');
-                                            },
-                                            style: 'cancel',
-                                        },
-                                        {
-                                            text: 'Ajouter ce bâtiment', 
-                                            onPress: () => 
-                                            {
-                                                this.setState({ buildMarker : eCoord }); 
-                                                console.log(this.state.buildMarker);
-                    
-                                                this.state.array.push(eCoord)
-                                                console.log(this.state.array);
-                                            }
-                                        },
-                                    ]);
-                                
-                        }
-                    }
+
                 >
                     {
                         //this.state.buildMarker &&

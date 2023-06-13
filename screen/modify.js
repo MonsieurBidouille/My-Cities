@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   });const styless = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'pink',
+      backgroundColor: '#545454',
       alignItems: 'center',
       justifyContent: 'center',
     },

@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, TouchableOpacity, Image, Alert, TextInput } fro
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
+import WhiteButton from '../components/white_button';
 
 
 export default class Camera_screen extends React.Component 
@@ -13,7 +14,7 @@ export default class Camera_screen extends React.Component
             hasPermission: null,
             type: Camera.Constants.Type.back,
             uri: null,
-            photoName : "nomdelaphoto",
+            photoName : "",
             arr: [],
             arrN: "",
             building_id:0
@@ -82,6 +83,10 @@ export default class Camera_screen extends React.Component
 
     async upload()
     {
+        if(this.state.photoName == ""){
+            Alert.alert("Veuillez entrer un nom pour la photo.");
+            return false ;
+        }
         const formdata = new FormData()
         formdata.append('file_attachment', {uri: this.state.uri, name: `${this.state.photoName}.jpg`, type:'image/jpeg'});
         formdata.append('buildid', this.state.building_id);
@@ -171,7 +176,7 @@ export default class Camera_screen extends React.Component
                 }}>
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity
-                            style={styles.button}
+                            style={styles.buttonflip}
                             onPress={() => {
                                 this.setState({type:
                                     this.state.type === Camera.Constants.Type.back
@@ -179,83 +184,34 @@ export default class Camera_screen extends React.Component
                                         : Camera.Constants.Type.back
                                 });
                             }}>
-                            <Text style={styles.text}> Flip </Text>
+                            <Text style={styles.textflip}>🔁</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={styles.buttonSnap}
                             onPress={() => {
                                 this.snap()
                             }}>
-                            <Text style={styles.text}> Take photo </Text>
+                            <Text style={styles.point}>⚪</Text>
                         </TouchableOpacity>
                     </View>
                 </Camera>
                 
-                <View style={styles.buttonContainer}>
-                    <Image style={{flex: 1}} source={{uri: this.state.uri ? this.state.uri : 'https://reactnative.dev/img/tiny_logo.png'}}/>
-                </View>
-                
-                <View>
-                <TouchableOpacity
-                    onPress={() => 
-                        {
-                            this.save(this.state.uri)
-                        }}
-                >
-                            <Text style={{color: "red"}}> Save</Text>
-                        </TouchableOpacity>
-                </View>
 
-                <View>
-                <TouchableOpacity
-                    onPress={() => 
-                        {
-                            this.search()
-                        }}
-                >
-                            <Text style={{color: "red"}}> Search </Text>
-                        </TouchableOpacity>
-                </View>
-                <View>
-                    <TextInput 
-                        placeholder="Insérer le nom de la photo"
-                        onChangeText=
-                        {
-                            inputText => this.setState({photoName: inputText})
-                        }
-                    />
-                </View>
-                <View>
-                    <TouchableOpacity
-                        onPress={() => 
-                        {
-                            this.upload()
-                        }}
-                    >
-                            <Text style={{color: "red"}}> Upload </Text>
-                    </TouchableOpacity>
-                </View>
-                <View>
-                    <TouchableOpacity
-                        onPress={() => 
-                        {
-                            this.display()
-                        }}
-                    >
-                            <Text style={{color: "red"}}> Display </Text>
-                    </TouchableOpacity>
+                
+                <View style={styles.menu}>
                     
-                    <Image 
-                        source={{uri:`http://jdevalik.fr/api/mycities/photos/uploads/${this.state.arrN}.jpg`}}
-                        style=
-                        {{
-                            width:200,
-                            height:200
-                        }}
-                    />
-                </View>
-                <View>
-                    <Text>{`http://jdevalik.fr/api/mycities/photos/uploads/${this.state.arrN}.jpg`}</Text>
+
+                    <TextInput style={styles.input} placeholder="Veuillez entrer le nom de la photo" value={this.state.photoName} onChangeText={inputText => this.setState({photoName: inputText})}/>
+                    
+                    <View style={styles.parcsav}> 
+                    <WhiteButton  val="parcourir" onPress={() => {this.search()}}/>
+                    <WhiteButton  val="Sauvegarder" onPress={() => {this.save(this.state.uri)}}/>
+                    </View>
+
+                    <View style={styles.send}>
+                    <WhiteButton val="Envoyer" onPress={() => {this.upload()}}/>
+                    </View>
+
                 </View>
             </View>
         );
@@ -266,30 +222,60 @@ export default class Camera_screen extends React.Component
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: '#545454',
         flexDirection: 'column'
     },
     camera: {
-        flex: 1,
+        flex: 3,
     },
     buttonContainer: {
         flex: 1,
         backgroundColor: 'transparent',
         flexDirection: 'row',
+        justifyContent:"center",
         margin: 20,
     },
-    button: {
+    buttonflip: {
         flex: 0.1,
-        alignSelf: 'flex-end',
+        alignSelf:"flex-end",
         alignItems: 'center',
+        fontSize:50,
+
     },
     buttonSnap: {
         marginTop: 20,
         flex: 0.3,
-        alignSelf: 'flex-start',
+        alignSelf:"flex-end",
         alignItems: 'center',
+
     },
-    text: {
-        fontSize: 18,
+    textflip: {
+        fontSize: 33,
         color: 'white',
+        backgroundColor:"black",
+    },
+
+    point:{
+        fontSize:50,
+        color:"white",
+    },
+    input:{
+        backgroundColor:"white"
+    },
+    menu:{
+        flex:2,
+    },
+
+    parcsav:{
+        flex:1,
+        flexDirection:"row",
+        justifyContent:"center",
+        alignItems: 'center'
+    },
+
+    send:{
+        flex:1,
+        justifyContent:"center",
+        alignItems: 'center'
     },
 });

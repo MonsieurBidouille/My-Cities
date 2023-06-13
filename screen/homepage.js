@@ -9,6 +9,7 @@ import {
   Alert,
   useEffect,
   setInterval,
+  ImageBackground
 } from 'react-native';
 import WhiteButton from '../components/white_button';
 import Inscription from './inscription';
@@ -65,22 +66,18 @@ db.transaction(trs => {
 
 
     render(){
+      const city = require('../assets/city.jpg');
+      const logo = require('../assets/logo.png');
         const {navigate} = this.props.navigation;
         return (
+          <ImageBackground source={city} style={styles.background}>
             <View style={styles.container}>
-                      <Text style={{color:'blue',fontSize: 22 ,}}>Connexion/Inscription</Text>
-                      <View style={{height: 20}}/>
-                      <Button style={styles.boutoncli} color={this.state.color1} title="Connexion"onPress={() => navigate("login")}/>
-                      <View style={{height: 20}}/>
-                      <WhiteButton val="INSCRIPTION" onPress={()=> navigate("inscription")}></WhiteButton>
-                      <Image style={styles.tinyLogo} source={{ uri: 'https://reactnative.dev/img/tiny_logo.png',}}/>
-                      <View style={{height: 20}}/>
-                      <Button style={styles.boutoncli} color={this.state.color1} title="city"onPress={() => navigate("city")}/>
-                      <View style={{height: 20}}/>
-                      <Button style={styles.boutoncli} color={this.state.color1} title="admin"onPress={() => navigate("admin")}/>
-                      <View style={{height: 20}}/>
-                      <Button style={styles.boutoncli} color={this.state.color1} title="filter"onPress={() => navigate("buildfilter")}/>
+                      <Image source={logo} style={styles.logo}/>        
+                      <WhiteButton  color={this.state.color1} val="Connexion"onPress={() => navigate("login")}/>       
+                      <WhiteButton val="Inscription" onPress={()=> navigate("inscription")}></WhiteButton>
+                      <WhiteButton  color={this.state.color1} val="Liste des villes"onPress={() => navigate("city")}/>                     
             </View>
+            </ImageBackground>
         )
     }
 }
@@ -100,12 +97,17 @@ const styles = StyleSheet.create({
       justifyContent: 'center',
     },
 
-    tinyLogo: {
-      position:'absolute',
-      top:0,
-      left:0,
-      width: 50,
-      height: 50,
+    logo: {
+      width: 150,
+      height: 150,
+      marginBottom: 20,
+      position:"absolute",
+      top:5
+    },
+
+    background: {
+      flex: 1,
+      resizeMode: 'cover', 
     },
   
   });

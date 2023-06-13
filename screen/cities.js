@@ -13,6 +13,8 @@ import {
   TextInput
 } from 'react-native';
 import {connect} from "react-redux";
+import WhiteButton from '../components/white_button';
+import Title from '../components/title';
 
 
 
@@ -60,26 +62,52 @@ render(){
     const {navigate} = this.props.navigation;
     return(
         <View style={styles.container}>
-            <TextInput  value={this.state.city} onChangeText={text=> this.setState({city:text})}  placeholder="Tapez une ville" keyboardType="text"/>
-            <Button color='blue'  title="Valider" onPress={() => this.valid()}/>
+          <View style={styles.container2}>
+          <Title val = "Sélection de ville"/>
+            <TextInput style={styles.input} value={this.state.city} onChangeText={text=> this.setState({city:text})}  placeholder="Chercher une ville" keyboardType="text"/>
+            <WhiteButton  val="Valider" onPress={() => this.valid()}/>
             
             {this.state.cities.map((city, City) => (
           <View  key={City}>
                   <View >
-                   <TouchableOpacity onPress={() => navigate("buildings",{id:city[1]})}><Text>{city[0]}</Text></TouchableOpacity>
+                   <TouchableOpacity style={styles.cities} onPress={() => navigate("buildings",{id:city[1]})}><Text style={styles.citiesText}>{city[0]}</Text></TouchableOpacity>
                   </View>
-                  
+                
         </View>))}
+        </View>
         </View>)}
 }
 const styles = StyleSheet.create({
 container:{
     flex: 1,
-    flex: 1,
-    backgroundColor: 'pink',
+    backgroundColor: '#545454',
     alignItems: 'center',
-    justifyContent: 'center',
   },
+
+container2:{
+  marginTop:100,
+  flex: 1,
+  alignItems: 'center',
+  },
+
+  cities: {
+    alignItems: 'center',
+    marginBottom:10,
+    height:30,
+  },
+  citiesText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+    textDecorationLine:"underline"
+  },
+
+  input:{
+    backgroundColor:"white",
+    width:150,
+    margin:5,
+    borderWidth:1,
+  }
 }
 )
 

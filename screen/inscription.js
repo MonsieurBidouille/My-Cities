@@ -10,6 +10,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {connect} from "react-redux";
+import WhiteButton from '../components/white_button';
+import Title  from '../components/title';
 
 
 
@@ -83,22 +85,22 @@ class Inscription extends React.Component{
         const {navigate} = this.props.navigation;
 
         return (
-            <View style={styless.container}>
-                      <Text style={{color:'blue',fontSize: 22 , textAlign:'center'}}>Inscription</Text>
-                      <View style={{height: 5}}/>
+            <View style={styles.container}>
+                      <Title val="Inscription"/>
+                     
                       <TextInput style={styles.input} value={this.state.email} onChangeText={text=> this.setState({email:text})}  placeholder="E-mail" keyboardType="text"/>
-                      <View style={{height: 5}}/>
+                    
                       <TextInput style={styles.input} value={this.state.pass} onChangeText={text=> this.setState({pass:text})} placeholder="Mot de passe" keyboardType="text"/>
-                      <View style={{height: 5}}/>
+           
                       <TextInput style={styles.input} value={this.state.lname} onChangeText={text=> this.setState({lname:text})} placeholder="Nom" keyboardType="text"/>
-                      <View style={{height: 5}}/>
+                
                       <TextInput style={styles.input} value={this.state.fname} onChangeText={text=> this.setState({fname:text})} placeholder="Prénom" keyboardType="text"/>
-                      <View style={{height: 5}}/>
+                    
                       <TextInput style={styles.input} value={this.state.tel} onChangeText={text=> this.setState({tel:text})} placeholder="Téléphone" keyboardType="text"/>
-                      <View style={{height: 5}}/>
+               
                       <TextInput style={styles.input} value={this.state.civ} onChangeText={text=> this.setState({civ:text})} placeholder="Civilité" keyboardType="text"/>
-                      <View style={{height: 5}}/>
-                      <Button style={{margin:10}} color='blue'  title="Valider" onPress={() => this.testinputs()}/>
+                      
+                      <WhiteButton val="Valider" onPress={() => this.testinputs()}/>
             </View>
         )
     }
@@ -112,12 +114,11 @@ const styles = StyleSheet.create({
       padding: 10,
       backgroundColor:'white',
       margin: 10
-    }
-    ,
-  });const styless = StyleSheet.create({
+    },
+    
     container: {
       flex: 1,
-      backgroundColor: 'pink',
+      backgroundColor: '#545454',
       alignItems: 'center',
       justifyContent: 'center',
     },

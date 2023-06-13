@@ -6,6 +6,7 @@ import {
   View,
   SafeAreaView,
   Text,
+  Image,
   Alert,
 } from 'react-native';
 import {connect} from "react-redux";
@@ -40,24 +41,34 @@ test(){
         const {crnt_role} = this.props;
         const {crnt_id} = this.props;
         const {navigate} = this.props.navigation;
+        const logo = require('../assets/logo3.png');
 
         console.log(this.props.crnt_role);
 
         return (
-            <View style={styles.container}>
-                      <Text style={{color:'blue',fontSize: 22 , textAlign:'center'}}>Vous êtes connecté</Text>
-                      <View style={{height: 20}}/>
-                      <Text>Bienvenue {crnt_usr} {crnt_role} {crnt_id} sur notre application d'inscription connection.</Text>
-                      <View style={{height: 20}}/>
-                      <WhiteButton style={{height: 20}} val = "Modification"  onPress={() => this.modif()}></WhiteButton>
-                      <WhiteButton style={{height: 20}} val = "Déconnexion"  onPress={() => this.deco()}></WhiteButton>
-                      <WhiteButton style={{height: 20}} val = "test"  onPress={() => this.test()}></WhiteButton>
+          <View style={styles.container}>
+            <Image source={logo} style={styles.logo}/>    
+            <View style={styles.btngroups}>
+                  <View style={styles.btngroup}>
+                      <WhiteButton style={{height: 20}} val = "Modification"  onPress={() => this.modif()}></WhiteButton> 
                       <WhiteButton style={{height: 20}} val = "city"  onPress={() => navigate("city")}></WhiteButton>
                       <WhiteButton style={{height: 20}} val = "addbuild"  onPress={() => navigate("addbuild")}></WhiteButton>
-                      <WhiteButton style={{height: 20}} val = "map"  onPress={() => navigate("favlist")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "Déconnexion"  onPress={() => this.deco()}></WhiteButton>
+                      
+                  </View>
+                  <View style={styles.btngroup}>
                       <WhiteButton style={{height: 20}} val = "map"  onPress={() => navigate("buildingsmap")}></WhiteButton>
-                      <View style={{height: 20}}/>
+                      <WhiteButton val="filter"onPress={() => navigate("buildfilter")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "favs"  onPress={() => navigate("favlist")}></WhiteButton>
+                      {crnt_role == "a" ?
+                      <WhiteButton  val="admin"onPress={() => navigate("admin")}/> : ""}
+                      
+                  </View>
             </View>
+          </View>
+            
+
+          
         )
     }
 }
@@ -66,11 +77,21 @@ test(){
 const styles = StyleSheet.create({
     container: {
       flex: 1,
-      backgroundColor: 'pink',
+      backgroundColor: '#545454',
       alignItems: 'center',
       justifyContent: 'center',
     },
-  
+  btngroups:{
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex:0.5,
+    flexDirection:"row"
+  },
+
+btngroup:{
+  margin:10
+}
+
   });
 
 

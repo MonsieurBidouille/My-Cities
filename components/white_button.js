@@ -19,9 +19,28 @@ export default class WhiteButton extends React.Component{
         const {val} = this.props;
         return (
             <View>
-                <TouchableOpacity onPress={this.props.onPress} style={{backgroundColor:"white",height:40,padding:10,display:"flex",borderColor:"black",borderBottomWidth:1,borderRadius:6, justifyContent:"center"}}><Text style={{color:"blue",textAlign:"center", fontSize:15}}>{val}</Text></TouchableOpacity>
+                <TouchableOpacity onPress={this.props.onPress} style={styles.button}><Text style={styles.buttonText}>{val}</Text></TouchableOpacity>
             </View>
         )
     }
 }
+
+
+const styles = StyleSheet.create({
+button: {
+    backgroundColor: '#615197',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+    marginBottom:10,
+    width:150,
+    borderWidth:3,
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+});
+
 
