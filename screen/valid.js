@@ -20,8 +20,12 @@ class Validation extends React.Component{
 
 deco(){
   const {navigate} = this.props.navigation ;
-  const action2 = {type:"crnt_user",value:null} ;
+  const action = {type:"crnt_user",value:""} ;
+  this.props.dispatch(action);
+  const action2 = {type:"crnt_id",value:""} ;
   this.props.dispatch(action2);
+  const action3 = {type:"crnt_role",value:""} ;
+  this.props.dispatch(action3);
   navigate("Homepage");
 }
 

@@ -22,12 +22,6 @@ function UserReducer(state=initialState,action){
         };
         return nextState;
 
-        case'add_fav':
-            nextState = {...state,
-            favs:action.value
-        };
-        return nextState;
-
         default:
              return state;
     }

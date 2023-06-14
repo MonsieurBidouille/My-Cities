@@ -55,11 +55,14 @@ componentDidMount(){
           }
     })
 
-    const {crnt_usr} = this.props;
+    const {crnt_id} = this.props;
 
+    let formdata2 = new FormData
+  
+    formdata2.append("id",crnt_id);
     fetch('http://jdevalik.fr/api/mycities/getfavsbyid.php', {
         method: 'POST', 
-        body: formdata, 
+        body: formdata2, 
         headers: {
             "Content-Type": "multipart/form-data"
         },
@@ -70,6 +73,7 @@ componentDidMount(){
             for(let i=0;i<json.length;i++){
                 arr.push(json[i].fav_id);
             }
+            console.log("l'arr",arr);
             this.setState({favs:arr});
           }
     })
@@ -79,7 +83,7 @@ componentDidMount(){
 
 
 render(){
-    const {favs} = this.props;
+  console.log("favs=",this.state.favs);
     const {navigate} = this.props.navigation;
     return(
         <View style={styles.container}>

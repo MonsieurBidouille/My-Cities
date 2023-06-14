@@ -90,7 +90,7 @@ class Inscription extends React.Component{
                      
                       <TextInput style={styles.input} value={this.state.email} onChangeText={text=> this.setState({email:text})}  placeholder="E-mail" keyboardType="text"/>
                     
-                      <TextInput style={styles.input} value={this.state.pass} onChangeText={text=> this.setState({pass:text})} placeholder="Mot de passe" keyboardType="text"/>
+                      <TextInput style={styles.input} value={this.state.pass} onChangeText={text=> this.setState({pass:text})} placeholder="Mot de passe" keyboardType="text" secureTextEntry={true}/>
            
                       <TextInput style={styles.input} value={this.state.lname} onChangeText={text=> this.setState({lname:text})} placeholder="Nom" keyboardType="text"/>
                 
