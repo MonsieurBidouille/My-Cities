@@ -250,7 +250,7 @@ render(){
 
 
         {connected ?   
-            <WhiteButton val="Ajouter une photo" onPress={()=> navigate("camera",{id:buildid.id})}></WhiteButton> : <Text style={styles.text}>Connectez vous pour ajouter une photo à ce bâtiment</Text>}
+            <WhiteButton val="Ajouter une photo" onPress={()=> navigate("camera",{id:buildid.id,role:crnt_role})}></WhiteButton> : <Text style={styles.text}>Connectez vous pour ajouter une photo à ce bâtiment</Text>}
 
          
             </View>

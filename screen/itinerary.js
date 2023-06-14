@@ -1,13 +1,13 @@
-import React, { useRef } from 'react';
-import { SafeAreaView, StyleSheet, Text, Alert, View, TextInput, Button, Dimensions } from 'react-native';
+import React from 'react';
+import { SafeAreaView, StyleSheet, Text, Alert, View, Image, Dimensions } from 'react-native';
 import * as Location from 'expo-location';
 import MapView, { Marker, Polyline, Callout } from 'react-native-maps';
 import MapViewDirections from 'react-native-maps-directions';
-
+import {connect} from "react-redux";
 const { width, height } = Dimensions.get('window');
 const KEY = 'AIzaSyDf1Hc8jbjnb5r140li7xkAW3IyJlC3-9o';
 
-export default class Itinerary extends React.Component 
+class Itinerary extends React.Component 
 {
     constructor(props) 
     {
@@ -22,17 +22,14 @@ export default class Itinerary extends React.Component
                 latitudeDelta: 10.0922,
                 longitudeDelta: 10.0421,
             },
-            buildMarker : {
-                latitude : 0,
-                longitude : 0
-            },
             distance : 0,
             duration : 0,
-            arrayFavo : [],
-            arrayFavoLat : [],
-            arrayFavoLong : [],
-            arrayMark: [],
-            aWayp : []
+            arrayFavo : [{
+                id: 1,
+                name : "",
+                latitude : 0,
+                longitude : 0
+            }],
         };
         this.onRegionChange = this.onRegionChange.bind(this)
         this.mapView = null
@@ -42,37 +39,10 @@ export default class Itinerary extends React.Component
     componentDidMount()
     {
         this.useEffect()
-        let a = []
-        let aLat = []
-        let aLong = []
-        for(let i=0; i<this.props.route.params.arrayFav.length; i++)
-        {
-            a.push({latitude : this.props.route.params.arrayFav[i].latitude, longitude : this.props.route.params.arrayFav[i].longitude})
-            aLat.push(this.props.route.params.arrayFav[i].latitude)
-            aLong.push(this.props.route.params.arrayFav[i].longitude)
-        }
-       
-        console.log("Copie l : " + aLat)
-        console.log("Copie o : " + aLong)
-        this.setState({arrayFavo: a})
-        this.setState({arrayFavoLat: aLat})
-        this.setState({arrayFavoLong: aLong})
-
-        let aWay = []
-        if(this.props.route.params.arrayFav.length > 2)
-        {
-        for(let i=1; i<this.props.route.params.arrayFav.length - 1; i++)
-        {
-            aWay.push({latitude : this.props.route.params.arrayFav[i].latitude, longitude : this.props.route.params.arrayFav[i].longitude})
-           
-        }
-        console.log("Copie AWA: " + aWay[0].longitude)
-        this.setState({aWayp: aWay})
-        console.log("AWAYP : " + this.state.aWayp)
-        }
+        const {crnt_id} = this.props
         formData = new FormData()
-        const c_id = 46
-        formData.append('id', c_id)
+        
+        formData.append('id', crnt_id)
         fetch('http://jdevalik.fr/api/mycities/getfavsbyid.php',
         {
             method:"POST",
@@ -133,7 +103,7 @@ export default class Itinerary extends React.Component
                         (e) => 
                         {
                             const eCoord = e.nativeEvent.coordinate
-                            Alert.alert('bâtiment', 'ses coords => latitude : ' + eCoord.latitude + ', longitude : ' + eCoord.longitude, 
+                            Alert.alert('Double clic', 'ses coords => latitude : ' + eCoord.latitude + ', longitude : ' + eCoord.longitude, 
                                     [
                                         {
                                             text: 'OK',
@@ -172,11 +142,12 @@ export default class Itinerary extends React.Component
             
                                 }
                             }
-                            pinColor='blue'
+                            pinColor={i==0  ? 'red' : (i==this.state.arrayFavo.length - 1 ? 'green' : 'blue')}
                         >
+                            <Image source={i==0 ? require('../assets/ligne-de-depart.png'): (i == this.state.arrayFavo.length - 1 ? require('../assets/ligne-darrivee.png') : require('../assets/etape-importante.png'))}/>
                             <Callout>
                                 <View>
-                                    <Text>{this.props.route.params.arrayFav[i].name} étape numéro : {i}</Text>
+                                    <Text>{this.state.arrayFavo[i].name} étape numéro : {i}</Text>
                                 </View>
                                 </Callout>
                         </Marker>
@@ -185,24 +156,19 @@ export default class Itinerary extends React.Component
                         <MapViewDirections
                             origin={
                                 {
-                                    latitude: parseFloat(this.state.arrayFavoLat[0]),
-                                    longitude: parseFloat(this.state.arrayFavoLong[0])
-
+                                    latitude: parseFloat(this.state.arrayFavo[0].latitude),
+                                    longitude: parseFloat(this.state.arrayFavo[0].longitude)
                                 }
                             }
                             destination={
                                 {
-                                    
-                                    latitude: parseFloat(this.state.arrayFavoLat[this.state.arrayFavoLat.length-1]),
-                                    longitude: parseFloat(this.state.arrayFavoLong[this.state.arrayFavoLong.length-1])
-
+                                    latitude: parseFloat(this.state.arrayFavo[this.state.arrayFavo.length-1].latitude),
+                                    longitude: parseFloat(this.state.arrayFavo[this.state.arrayFavo.length-1].longitude)
                                 }
                             }
                             apikey={KEY}
                             language="FR"
-                            
-                            //waypoints={(this.state.array.length > 2) ? this.state.array.slice(1, -1): undefined}
-                            waypoints={(this.state.arrayFavo.length > 2) ? this.state.aWayp : undefined}
+                            waypoints={(this.state.arrayFavo.length > 2) ? this.state.arrayFavo.slice(1, -1) : undefined}
                             strokeColor="hotpink"
                             strokeWidth={3}
                             onStart={(params) => {
@@ -227,8 +193,8 @@ export default class Itinerary extends React.Component
                                 }}
                         />
                 </MapView>
-                <Text>Distance : {this.state.distance} kms</Text>
-                <Text>Durée : {this.state.duration} min</Text>      
+                <Text style={styles.dist}>Distance : {this.state.distance} kms</Text>
+                <Text style={styles.dura}>Durée : {Math.floor(this.state.duration/60)}h{parseInt(this.state.duration % 60)}min</Text>      
             </SafeAreaView>
         );
     }
@@ -243,5 +209,21 @@ const styles = StyleSheet.create({
     {
         width: '100%',
         height: '75%',
+    },
+    dist:
+    {
+        color:'white',
+        fontSize: 20
+    },
+    dura:
+    {
+        color:'white',
+        fontSize: 20
     }
 });
+
+
+
+const mapStateToProps = (state)=>{
+    return state;}
+export default connect(mapStateToProps)(Itinerary);

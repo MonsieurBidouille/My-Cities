@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import Title  from '../components/title';
 import {connect} from "react-redux";
-import * as SQLite from 'expo-sqlite';
 import WhiteButton from '../components/white_button';
 
 class Login extends React.Component{

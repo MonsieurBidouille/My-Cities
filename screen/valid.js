@@ -50,18 +50,18 @@ test(){
             <Image source={logo} style={styles.logo}/>    
             <View style={styles.btngroups}>
                   <View style={styles.btngroup}>
-                      <WhiteButton style={{height: 20}} val = "Modification"  onPress={() => this.modif()}></WhiteButton> 
-                      <WhiteButton style={{height: 20}} val = "city"  onPress={() => navigate("city")}></WhiteButton>
-                      <WhiteButton style={{height: 20}} val = "addbuild"  onPress={() => navigate("addbuild")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "Modifier profil"  onPress={() => this.modif()}></WhiteButton> 
+                      <WhiteButton style={{height: 20}} val = "Chercher par ville"  onPress={() => navigate("city")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "Ajouter bâtiment"  onPress={() => navigate("addbuild")}></WhiteButton>
                       <WhiteButton style={{height: 20}} val = "Déconnexion"  onPress={() => this.deco()}></WhiteButton>
                       
                   </View>
                   <View style={styles.btngroup}>
-                      <WhiteButton style={{height: 20}} val = "map"  onPress={() => navigate("buildingsmap")}></WhiteButton>
-                      <WhiteButton val="filter"onPress={() => navigate("buildfilter")}></WhiteButton>
-                      <WhiteButton style={{height: 20}} val = "favs"  onPress={() => navigate("favlist")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "Carte intéractive"  onPress={() => navigate("buildingsmap")}></WhiteButton>
+                      <WhiteButton val="Filtrer bâtiments"onPress={() => navigate("buildfilter")}></WhiteButton>
+                      <WhiteButton style={{height: 20}} val = "Favoris"  onPress={() => navigate("favlist")}></WhiteButton>
                       {crnt_role == "a" ?
-                      <WhiteButton  val="admin"onPress={() => navigate("admin")}/> : ""}
+                      <WhiteButton  val="Administrer"onPress={() => navigate("admin")}/> : ""}
                       
                   </View>
             </View>

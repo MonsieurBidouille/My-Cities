@@ -4,6 +4,7 @@ import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import * as MediaLibrary from 'expo-media-library';
 import WhiteButton from '../components/white_button';
+import {connect} from "react-redux";
 
 
 export default class Camera_screen extends React.Component 
@@ -81,8 +82,8 @@ export default class Camera_screen extends React.Component
         }    
     }
 
-    async upload()
-    {
+    async upload(){
+        let role = {id:this.props.route.params.role}; 
         if(this.state.photoName == ""){
             Alert.alert("Veuillez entrer un nom pour la photo.");
             return false ;
@@ -91,6 +92,7 @@ export default class Camera_screen extends React.Component
         formdata.append('file_attachment', {uri: this.state.uri, name: `${this.state.photoName}.jpg`, type:'image/jpeg'});
         formdata.append('buildid', this.state.building_id);
         formdata.append('name', this.state.photoName);
+        role == "a" ? formdata.append('valid', 1) : formdata.append('valid', 0) ;
         console.log("image uri : " + this.state.uri);
         return await fetch('http://jdevalik.fr/api/mycities/photos/upload.php',
         {
@@ -279,3 +281,4 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
 });
+

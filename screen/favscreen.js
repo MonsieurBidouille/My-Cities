@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
         fontSize:22,
         textDecorationLine:"underline",
         color:"white",
-        backgroundColor:"black",
         margin:10,
     },
 

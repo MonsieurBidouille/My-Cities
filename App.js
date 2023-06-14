@@ -24,6 +24,7 @@ import Buildfilter from './screen/buildfilter';
 import Buildingsmap from './screen/buildingsmap';
 import Favlist from './screen/favscreen';
 import Itinerary from './screen/itinerary';
+import Picstovalid from './screen/picstovalid';
 
 const stack = createNativeStackNavigator();
 
@@ -37,6 +38,7 @@ export default function App() {
         <stack.Screen name="Homepage" component = {Homepage}/>
         <stack.Screen name="admin" component = {Admin}/>
         <stack.Screen name="Itineraire" component = {Itinerary}/>
+        <stack.Screen name="Validation photos" component = {Picstovalid}/>
         <stack.Screen name="buildingsmap" component = {Buildingsmap}/>
         <stack.Screen name="favlist" component = {Favlist}/>
         <stack.Screen name="buildfilter" component = {Buildfilter}/>

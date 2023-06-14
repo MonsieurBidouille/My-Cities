@@ -13,56 +13,19 @@ import {
 } from 'react-native';
 import WhiteButton from '../components/white_button';
 import Inscription from './inscription';
-import * as SQLite from 'expo-sqlite';
 
 
 export default class Homepage extends React.Component{
     constructor(props){
         super(props);
         this.state={
-          color1:"blue",
-          color2:"red"
+
         }
 }
 
 
-changecolor(){
-  setTimeout(() => {
-   this.setState({color1: 'red'})
-  }, 250);
 
 
-  setTimeout(() => {
-    this.setState({color1: 'blue'})
-   }, 500);
-
-
-   setTimeout(() => {
-    this.changecolor();
-   }, 1000);
-   
-
-}
-
-
-componentDidMount(){
-  this.changecolor();
-  this.createusertable();
-
-
-  // const interval = setInterval(() => {
-  //   this.changecolor();
-  // }, 1000);
-}
-
-
-
-createusertable(){
-const db = SQLite.openDatabase("data.db");
-db.transaction(trs => {
-  trs.executeSql("CREATE TABLE IF NOT EXISTS users (user_id INTEGER PRIMARY KEY NOT NULL AUTO_INCREMENT, user_name TEXT , user_mail TEXT ,user_pass TEXT);");
-});
-}
 
 
     render(){

@@ -13,6 +13,7 @@ import {
 import WhiteButton from '../components/white_button';
 import Inscription from './inscription';
 import {connect} from "react-redux";
+import Title from '../components/title';
 
 
 
@@ -30,24 +31,34 @@ render(){
     const {navigate} = this.props.navigation;
     return(
         <View style={styles.container}>
-            <Button  title="Promouvoir un utilisateur"onPress={() => navigate("promote")}/>
+            <Title val="Pannel admin" />
+        <View style={styles.container2} >
+            <WhiteButton  val="Promouvoir un utilisateur"onPress={() => navigate("promote")}/>
             <View style={{height: 20}}/>
-            <Button  title="Valider bâtiments en attentes"onPress={() => navigate("pending")}/>
+            <WhiteButton  val="Valider bâtiments en attentes"onPress={() => navigate("pending")}/>
             <View style={{height: 20}}/>
+            <WhiteButton  val="Valider les photos en attentes"onPress={() => navigate("Validation photos")}/>
+        </View>
         </View>
     )
 }
 }
 
 const styles = StyleSheet.create({
-container:{
-    flex: 1,
-    backgroundColor: 'pink',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-}
-)
+    
+    container: {
+      flex: 1,
+      backgroundColor: '#545454',
+
+    },
+  
+    container2:{
+        flex:1,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+  });
+
 
 const mapStateToProps = (state)=>{
     return state;}
