@@ -84,6 +84,7 @@ componentDidMount(){
                             for(let i =0; i < json.length;i++){
                                 arr.push(json[i].pic_name);
                             }
+                            console.log("c'est le arr",arr);
                             this.setState({pictures:arr});
                             this.setState({max_pic:arr.length-1});
                         }else{

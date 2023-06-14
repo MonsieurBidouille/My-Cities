@@ -82,18 +82,18 @@ export default class Camera_screen extends React.Component
         }    
     }
 
-    async upload(){
-        let role = {id:this.props.route.params.role}; 
+    async upload(arg_name){
+        const {navigate} = this.props.navigation
+        let role = {role:this.props.route.params.role}; 
         if(this.state.photoName == ""){
             Alert.alert("Veuillez entrer un nom pour la photo.");
             return false ;
         }
         const formdata = new FormData()
-        formdata.append('file_attachment', {uri: this.state.uri, name: `${this.state.photoName}.jpg`, type:'image/jpeg'});
+        formdata.append('file_attachment', {uri: this.state.uri, name: `${arg_name}.jpg`, type:'image/jpeg'});
         formdata.append('buildid', this.state.building_id);
-        formdata.append('name', this.state.photoName);
-        role == "a" ? formdata.append('valid', 1) : formdata.append('valid', 0) ;
-        console.log("image uri : " + this.state.uri);
+        formdata.append('name', arg_name);
+        role.role == "a" ? formdata.append('valid', 1) : formdata.append('valid', 0) ;
         return await fetch('http://jdevalik.fr/api/mycities/photos/upload.php',
         {
             method:'POST',
@@ -109,12 +109,9 @@ export default class Camera_screen extends React.Component
         {
             if(json != false)
             {
-                Alert.alert('Succès', "Ajout du fichier dans la base de données réussi !",
-                [
-                    {text: 'OK'}
-                ]
-                )
-
+            
+                Alert.alert('Succès', "Ajout du fichier dans la base de données réussi !",[{text: 'OK',onPress: () => navigate('Homepage')}])
+            
             }
             else
             {
@@ -126,6 +123,29 @@ export default class Camera_screen extends React.Component
             }
         }
         )
+    }
+
+
+    checkname(){
+        let name = this.state.photoName;
+        formdata = new FormData;
+        formdata.append("name", name);
+        fetch('http://jdevalik.fr/api/mycities/checkpicname.php', {
+            method: 'POST', 
+            body: formdata, 
+            headers: {
+                "Content-Type": "multipart/form-data"
+            },
+        }).then((response) => response.json())
+            .then((json) => {
+              if(json != false){
+                newname = name+"x";
+                console.log(newname);
+                this.upload(newname);
+              }else{
+                this.upload(name);
+              }
+        })
     }
 
     async display()
@@ -209,10 +229,10 @@ export default class Camera_screen extends React.Component
                     <WhiteButton  val="parcourir" onPress={() => {this.search()}}/>
                     <WhiteButton  val="Sauvegarder" onPress={() => {this.save(this.state.uri)}}/>
                     </View>
-
+                    {this.state.uri ? 
                     <View style={styles.send}>
-                    <WhiteButton val="Envoyer" onPress={() => {this.upload()}}/>
-                    </View>
+                    <WhiteButton val="Envoyer" onPress={() => {this.checkname()}}/>
+                    </View> : ""}
 
                 </View>
             </View>

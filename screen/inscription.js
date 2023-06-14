@@ -25,7 +25,7 @@ class Inscription extends React.Component{
           lname:"",
           fname:"",
           tel:"",
-          civ:""
+          civ:"O"
         }
     }
   
@@ -98,7 +98,7 @@ class Inscription extends React.Component{
                     
                       <TextInput style={styles.input} value={this.state.tel} onChangeText={text=> this.setState({tel:text})} placeholder="Téléphone" keyboardType="text"/>
                
-                      <TextInput style={styles.input} value={this.state.civ} onChangeText={text=> this.setState({civ:text})} placeholder="Civilité" keyboardType="text"/>
+                   {/*   <TextInput style={styles.input} value={this.state.civ} onChangeText={text=> this.setState({civ:text})} placeholder="Civilité" keyboardType="text"/> */}
                       
                       <WhiteButton val="Valider" onPress={() => this.testinputs()}/>
             </View>

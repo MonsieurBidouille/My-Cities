@@ -82,12 +82,14 @@ pendexe(boolt){
 render(){
     return(
         <View style={styles.container}>
-            <Text>{this.state.bd_name}</Text>
-            <Text>{this.state.bd_description}</Text>
-            <Text>{this.state.bd_year}</Text>
-            <Text>{this.state.bd_address}</Text>
-            <Button  title="Valider" onPress={() => this.pendexe("y") }/> 
-            <Button  title="Supprimer" onPress={() =>  this.pendexe("n") }/>
+            <View style={styles.bloc}>
+                <Text>{this.state.bd_name}</Text>
+                <Text>{this.state.bd_description}</Text>
+                <Text>{this.state.bd_year}</Text>
+                <Text>{this.state.bd_address}</Text>
+            </View>
+            <Button  color={"#1aad0b"} title="Valider" onPress={() => this.pendexe("y") }/> 
+            <Button  color={"red"} title="Supprimer" onPress={() =>  this.pendexe("n") }/>
         </View>
     )
 }
@@ -102,5 +104,12 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+
+    bloc:{
+        padding:10,
+        backgroundColor:"white"
+    },
+
+    
   
   });

@@ -58,7 +58,7 @@ componentDidMount(){
     const {crnt_id} = this.props;
 
     let formdata2 = new FormData
-  
+
     formdata2.append("id",crnt_id);
     fetch('http://jdevalik.fr/api/mycities/getfavsbyid.php', {
         method: 'POST', 
@@ -71,7 +71,7 @@ componentDidMount(){
           if(json != false){
             let arr = [];
             for(let i=0;i<json.length;i++){
-                arr.push(json[i].fav_id);
+                arr.push(json[i].fav_build_id);
             }
             console.log("l'arr",arr);
             this.setState({favs:arr});
@@ -83,14 +83,15 @@ componentDidMount(){
 
 
 render(){
-  console.log("favs=",this.state.favs);
     const {navigate} = this.props.navigation;
+
     return(
         <View style={styles.container}>
           <Title style={styles.title} val="Liste des bâtiments" />
             
         {this.state.buildings.map((building, Building) => (
         <View key={Building}>
+          
                 <View >
                 <TouchableOpacity onPress={() => navigate("building",{id:building[1]})}><Text style={styles.builds}>{building[0]}{this.state.favs.includes(building[1])?"⭐":""}</Text></TouchableOpacity>
                 </View>

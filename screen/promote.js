@@ -83,12 +83,12 @@ validation(user_id){
 render(){
     return(
         <View style={styles.container}>
-            <TextInput  value={this.state.user} onChangeText={text=> this.setState({user:text})}  placeholder="Chercher un utilisateur par nom, prénom ou adresse mail" keyboardType="text"/>
-            <Button color='blue'  title="Valider" onPress={() => this.getuser()}/>
+            <TextInput style={styles.input} value={this.state.user} onChangeText={text=> this.setState({user:text})}  placeholder="Chercher un utilisateur par nom, prénom ou adresse mail" keyboardType="text"/>
+            <WhiteButton   val="Valider" onPress={() => this.getuser()}/>
            {this.state.users.map((users, Users) => (
                     <View  key={Users}>
                     <View >
-                    <TouchableOpacity onPress={() => this.validation(users[0])}><Text>{users[1]} {users[2]}| mail:{users[3]}</Text></TouchableOpacity>
+                    <TouchableOpacity style={styles.resultsb} onPress={() => this.validation(users[0])}><Text style={styles.results}>{users[1]} {users[2]} | Mail:{users[3]}</Text></TouchableOpacity>
                     </View>
             </View>))}
 
@@ -104,5 +104,21 @@ const styles = StyleSheet.create({
       alignItems: 'center',
       justifyContent: 'center',
     },
+
+    input:{
+        padding:10,
+        backgroundColor:"white",
+    },
+
+    results:{
+        backgroundColor:"white",
+    },
+
+    resultsb:{
+        borderWidth:1,
+        margin:5
+    },
+
+
   
   });

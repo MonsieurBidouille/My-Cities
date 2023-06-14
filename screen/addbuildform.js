@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TextInput, Button, Aler,KeyboardAvoidingView } from 'react-native';
+import { StyleSheet, Text, View, TextInput, Button, Alert,KeyboardAvoidingView } from 'react-native';
 import { List } from 'react-native-paper'
 import {connect} from "react-redux";
 import WhiteButton from '../components/white_button';
@@ -19,7 +19,7 @@ class BuildForm extends React.Component
             building_town:1,
             building_address:"1, rue du dev",
             type:[],
-            expanded:true,
+            expanded:false,
             type_id: 1,
         };
     }
@@ -91,7 +91,7 @@ class BuildForm extends React.Component
                 Alert.alert('Succès', "Ajout des détails du bâtiment réussi !",
                 [ {text: 'OK'}]
                 )
-                //this.props.navigation.navigate("AddBuild")
+                this.props.navigation.navigate("Homepage")
             }
             else
             {
@@ -151,6 +151,7 @@ class BuildForm extends React.Component
             <TextInput style={styles.input} placeholder="Insérer l'année du bâtiment" onChangeText={inputText => this.setState({building_year: inputText})}/>
             <TextInput style={styles.input} placeholder="Insérer la description du bâtiment" onChangeText={inputText => this.setState({building_description: inputText})}/>
             <TextInput style={styles.input} placeholder="Insérer la ville du bâtiment" onChangeText={inputText => this.setState({building_town: inputText})}/>
+            <TextInput style={styles.input} placeholder="Insérer l'adresse du bâtiment'" onChangeText={inputText => this.setState({building_address: inputText})}/>
             </View>
                 <List.Accordion style={styles.list}
                     title="Types"
