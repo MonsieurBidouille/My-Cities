@@ -110,7 +110,7 @@ export default class Camera_screen extends React.Component
             if(json != false)
             {
             
-                Alert.alert('Succès', "Ajout du fichier dans la base de données réussi !",[{text: 'OK',onPress: () => navigate('Homepage')}])
+                Alert.alert('Succès', "Ajout du fichier dans la base de données réussi !",[{text: 'OK',onPress: () => navigate('valid')}])
             
             }
             else

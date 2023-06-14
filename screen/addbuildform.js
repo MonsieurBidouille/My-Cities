@@ -91,7 +91,7 @@ class BuildForm extends React.Component
                 Alert.alert('Succès', "Ajout des détails du bâtiment réussi !",
                 [ {text: 'OK'}]
                 )
-                this.props.navigation.navigate("Homepage")
+                this.props.navigation.navigate("valid")
             }
             else
             {

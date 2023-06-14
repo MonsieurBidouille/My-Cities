@@ -35,7 +35,7 @@ export default class Buildingsmap extends React.Component
 
     componentDidMount()
     {
-        this.useEffect()
+       // this.useEffect()
         fetch('http://jdevalik.fr/api/mycities/getallbuildings.php',
         {
             method:"POST",
@@ -58,7 +58,7 @@ export default class Buildingsmap extends React.Component
             )
         .catch(e => console.log(e));
     }
-
+/*
     async useEffect(){
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== 'granted') {
@@ -70,7 +70,7 @@ export default class Buildingsmap extends React.Component
         this.setState({location: location});
         console.log(location)
     }
-
+*/
     onRegionChange = (reg) => 
     {
         this.setState({

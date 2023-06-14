@@ -1,15 +1,9 @@
 import React from 'react';
 import {
   StyleSheet,
-  Button,
   View,
-  SafeAreaView,
   TouchableOpacity,
   Text,
-  Image,
-  Alert,
-  useEffect,
-  setInterval,
   TextInput
 } from 'react-native';
 import {connect} from "react-redux";
@@ -115,3 +109,4 @@ container2:{
 const mapStateToProps = (state)=>{
     return state;}
 export default connect(mapStateToProps)(Cities);
+
