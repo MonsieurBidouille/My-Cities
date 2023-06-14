@@ -61,40 +61,15 @@ formdata.append("pass",this.state.pass);
             const action3 = {type:"crnt_id",value:json[0].user_id}
             this.props.dispatch(action3);
 
-            this.getfavs(json[0].user_id);
-
             navigate("valid");
           }else{
+            Alert.alert('Erreur', "Identifiants incorrectes")
             return false;
           }
     })
   }
 
-  getfavs(cid){
-    const formdata = new FormData;
-    console.log("dans le getfav",cid);
-    formdata.append("id",cid);
 
-    fetch('http://jdevalik.fr/api/mycities/getfavs.php', {
-      method: 'POST', 
-      body: formdata, 
-      headers: {
-          "Content-Type": "multipart/form-data"
-      },
-  }).then((response) => response.json())
-      .then((json) => {
-        if(json != false){
-          let arr = [];
-          for(let i = 0;i<json.length;i++){
-            arr.push(json[i].fav_build_id);
-          }
-          const action5 = {type:"add_fav",value:arr};
-          this.props.dispatch(action5);
-        }else{
-          return false;
-        }
-  })
-  }
 
   test(){
     console.log(this.checkpassword());
@@ -108,7 +83,7 @@ formdata.append("pass",this.state.pass);
                       <View style={{height: 5}}/>
                       <TextInput style={styles.input} value={this.state.email} onChangeText={text=> this.setState({email:text})}  placeholder="Email" keyboardType="text"/>
                       <View style={{height: 5}}/>
-                      <TextInput style={styles.input} value={this.state.pass} onChangeText={text=> this.setState({pass:text})} placeholder="Mot de passe" keyboardType="text"/>
+                      <TextInput style={styles.input} value={this.state.pass} onChangeText={text=> this.setState({pass:text})} placeholder="Mot de passe" keyboardType="text" secureTextEntry={true}/>
                       <View style={{height: 5}}/>
                       <WhiteButton   val="Connexion" onPress={() => this.connexion()}/>
                       <WhiteButton onPress={() => navigate('inscription')}   val="Inscription"/>
