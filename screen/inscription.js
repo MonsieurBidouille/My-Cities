@@ -12,7 +12,7 @@ import {
 import {connect} from "react-redux";
 import WhiteButton from '../components/white_button';
 import Title  from '../components/title';
-
+import { RadioButton } from 'react-native-paper';
 
 
 
@@ -25,7 +25,8 @@ class Inscription extends React.Component{
           lname:"",
           fname:"",
           tel:"",
-          civ:""
+          civ:"",
+          checked:'M'
         }
     }
   
@@ -101,6 +102,35 @@ class Inscription extends React.Component{
                       <TextInput style={styles.input} value={this.state.civ} onChangeText={text=> this.setState({civ:text})} placeholder="Civilité" keyboardType="text"/>
                       
                       <WhiteButton val="Valider" onPress={() => this.testinputs()}/>
+
+                      <View style={{flexDirection: "row", alignContent:'center'}}>
+                        
+                        <View style={{ flex: 4, alignSelf: 'center' }}> 
+                          <Text>Homme</Text>
+                        </View>
+                        <View style={{flex:1}}>
+                      <RadioButton
+                        value="M"
+                        status={this.state.checked === 'M' ? 'check' : 'non check'}
+                        onPress={() => this.setState({checked:'M'})}
+                        uncheckedColor='red'
+                        color='green'
+                      />
+                      </View>
+                      <View style={{ flex: 4, alignSelf: 'center' }}>
+                        <Text>Femme</Text>
+                        </View>
+                        <View style={{flex:1}}>
+                      <RadioButton
+                        value="M"
+                        status={this.state.checked === 'F' ? 'check' : 'non check'}
+                        onPress={() => this.setState({checked:'F'})}
+                        uncheckedColor='red'
+                        color='green'
+                      />
+                      </View>
+                 
+                      </View>
             </View>
         )
     }
@@ -121,6 +151,11 @@ const styles = StyleSheet.create({
       backgroundColor: '#545454',
       alignItems: 'center',
       justifyContent: 'center',
+    },
+
+    radiogroup:{
+      flex:1,
+      flexDirection:"row",
     },
   
   });
